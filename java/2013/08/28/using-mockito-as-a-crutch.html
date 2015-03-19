@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>things i am currently doing re: computers - </title>
+    <meta name="description" content="things i am currently doing re: computers" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="">
+                
+                    <img src="/assets/images/pages/all/profile.png" alt="things i am currently doing re: computers" />
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2013-08-28">28 Aug 2013</time>
+	</span>
+
+        <h1 class="post-title">Using Mockito As A Crutch</h1>
+
+	<span class="post-meta">
+	
+		posted in
+		
+		    java
+		
+	
+	</span>
+
+        <section class="post-content">
+            <p><em>&quot;omne trium perfectum&quot;</em>, as the Latins used to say: a set of three is perfect. Sadly I don&#39;t have three facts I know about <a href="http://code.google.com/p/mockito/">mockito</a>,
+but I do have two facts. That&#39;s not enough to impress anyone, which means
+almost by definition, it&#39;s enough for a blog.</p>
+
+<h3>Returning different values from a mock on successive calls</h3>
+
+<p>This is so basic, I expect I&#39;m the last person to hear about it.
+I stumbled on it while trying to mock an <a href="http://docs.oracle.com/javase/6/docs/api/java/util/Enumeration.html"><code>Enumeration</code></a>. The <code>thenReturn</code>
+method takes an array of objects which will be returned over subsequent
+calls, for example:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Enumeration</span> <span class="n">myEnumeration</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="n">Enumeration</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">when</span><span class="o">(</span><span class="n">myEnumeration</span><span class="o">.</span><span class="na">hasMoreElements</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="kc">true</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+<span class="n">when</span><span class="o">(</span><span class="n">myEnumeration</span><span class="o">.</span><span class="na">nextElement</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="k">new</span> <span class="nf">Integer</span><span class="o">(</span><span class="mi">3</span><span class="o">),</span> <span class="k">new</span> <span class="nf">Integer</span><span class="o">(</span><span class="mi">5</span><span class="o">));</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">while</span><span class="o">(</span><span class="n">myEnumeration</span><span class="o">.</span><span class="na">hasMoreElements</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">myEnumeration</span><span class="o">.</span><span class="na">nextElement</span><span class="o">();</span> <span class="c1">// returns 3, 5, 3, 5</span>
+<span class="o">}</span></code></pre></div>
+
+<p>The return value will wrap over the given parameters, so the third call to
+<code>nextElement</code> will return the zeroth parameter and so on. This is a really
+clean way of mocking objects with simple, predictable behaviour.</p>
+
+<h3>Integrating an existing object with complex behaviour</h3>
+
+<p>In the code I&#39;m working on, our configuration is passed around as a
+<code>properties</code> object. It&#39;s pretty clear that every time a developer has
+been called upon to support some new configuration, they&#39;ve created a
+wrapper object somewhere in the code base close to where it&#39;s needed.
+This is kind of horrible for three reasons:</p>
+
+<ol>
+<li><p>the same configuration is used in multiple places, so we end up with
+multiple instances of some of these objects;</p></li>
+<li><p>supporting a new configuration format means duplicating lots of
+logic that determines how to access the new config, and when to
+fall back to the old config</p></li>
+<li><p>THE DEPENDENCIES, OH GOD, THE DEPENDENCIES!</p></li>
+</ol>
+
+<p>I went with creating a composite of old and new configuration, and
+where behaviour contained in supporting objects was too complex to
+refactor in a reasonable amount of time, I wrapped it with the composite
+configuration object to hide it from the rest of the system.</p>
+
+<p>Mockito&#39;s <code>thenAnswer</code> method lets you model arbitrary behaviour
+in response to a method call on a mock. This example passes an argument
+to an existing class.</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">NewConfiguration</span> <span class="n">config</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="n">NewConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>  <span class="c1">// mock new class</span>
+<span class="n">when</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">doComplexThing</span><span class="o">(</span><span class="n">anyString</span><span class="o">())).</span><span class="na">thenAsnwer</span><span class="o">(</span><span class="k">new</span> <span class="nf">Answer</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Object</span> <span class="nf">answer</span><span class="o">(</span><span class="n">InvocationOnMock</span> <span class="n">invocation</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="nf">ExistingObject</span><span class="o">().</span><span class="na">doComplexThing</span><span class="o">(</span><span class="n">invocation</span><span class="o">.</span><span class="na">getArguments</span><span class="o">()[</span><span class="mi">0</span><span class="o">]));</span>  <span class="c1">// call existing method</span>
+    <span class="o">}</span>
+<span class="o">});</span></code></pre></div>
+
+<p>I&#39;m not advocating these techniques for doing clean TDD,  but they&#39;re good
+tools for cleaning up existing code.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/pages/all/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                	  <!-- Author Name -->
+                    	  <h4> Tom Regan </h4>
+                    	  <!-- Author Bio -->
+                    	  <p> 
+                    	    I write things for computers, also people.
+                    	  </p>
+			  <p>
+			    <i class="fa fa-github-alt"></i>
+			    <a href="http://github.com/TomRegan">GitHub</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-comment"></i>
+			    <a href="http://twitter.com/TomRegan">@TomRegan</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-key"></i>
+			    <a href="http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x53D17134DC8B2BFF">
+			    DC8B2BFF
+			    </a>
+			  </p>
+			</article>
+                </section>                
+            
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <!-- This page is licensed under a FUCK ALL OF YOUR STUPID LEGAL SHIT
+             LICENSE V1.0. I am happy for you to share anything I post here as
+             long as you have a clear conscience; this includes but need not
+             be limited to: copies in part or in whole, derivative works,
+             commercial works, commercially unsuccessful works, blasphemous
+             works (strongly encouraged), any edition of Microsoft Works, etc.
+             I do not expect any form of attribution. It is not my intention 
+             to limit your actions with respect to sharing my work in any way.
+        -->
+        <div class="inner">
+            <a href="http://www.kopimi.com/kopimi">
+                <img class="kopimi" src="/assets/images/pages/foot/kopimi.png">
+            </a>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

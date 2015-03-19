@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>things i am currently doing re: computers - </title>
+    <meta name="description" content="things i am currently doing re: computers" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="">
+                
+                    <img src="/assets/images/pages/all/profile.png" alt="things i am currently doing re: computers" />
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2012-10-06">06 Oct 2012</time>
+	</span>
+
+        <h1 class="post-title">Fixing A Permissions Error Opening A Semaphore</h1>
+
+	<span class="post-meta">
+	
+		posted in
+		
+		    c
+		
+	
+	</span>
+
+        <section class="post-content">
+            <p>Today I spent a couple of hours getting semaphores to work.</p>
+
+<p><img src="https://farm1.staticflickr.com/177/403268783_bd644e1b0a.jpg" alt="" title="semaphore by brapps, on Flickr"></p>
+
+<p>I was opening a semaphore like this:</p>
+
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">if</span> <span class="p">(</span><span class="n">SEM_FAILED</span> <span class="o">==</span> <span class="p">(</span><span class="n">CACHE_LOCK</span> <span class="o">=</span> <span class="n">sem_open</span><span class="p">(</span><span class="s">&quot;/cache_lock&quot;</span><span class="p">,</span> <span class="n">O_CREAT</span><span class="p">,</span> <span class="mo">0660</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;error opening semphore: %i</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">errno</span><span class="p">);</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="cm">/* error creating semaphore */</span>
+<span class="p">}</span></code></pre></div>
+
+<p>This runs fine on my Mac, but fails on an Ubuntu machine. On failure it sets
+<code>errno</code> to <code>EACCESS (13)</code>. Whatever you might expect, this fact alone did
+not allow me to figure out the cause of the problem.</p>
+
+<p><img src="/assets/images/2012-10-06-fixing-a-permissions-error-opening-a-semaphore/read-all-the-things.png" alt=""></p>
+
+<p>It turns out the name I&#39;d chosen isn&#39;t allowed. I couldn&#39;t find the rules
+that expressly state this, or even hinted that it might be the case, but
+I found when I changed the name from &#39;/cache_lock&#39; to &#39;/lock&#39; on a whim,
+it worked. Apparantly, underscores are not cool with Linux kernel developers.</p>
+
+<p>During my Googling I found <a href="http://stackoverflow.com/questions/10409901/sem-open-causes-illegal-seek-error">the following question</a>
+which put me on the right track.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/pages/all/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                	  <!-- Author Name -->
+                    	  <h4> Tom Regan </h4>
+                    	  <!-- Author Bio -->
+                    	  <p> 
+                    	    I write things for computers, also people.
+                    	  </p>
+			  <p>
+			    <i class="fa fa-github-alt"></i>
+			    <a href="http://github.com/TomRegan">GitHub</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-comment"></i>
+			    <a href="http://twitter.com/TomRegan">@TomRegan</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-key"></i>
+			    <a href="http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x53D17134DC8B2BFF">
+			    DC8B2BFF
+			    </a>
+			  </p>
+			</article>
+                </section>                
+            
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <!-- This page is licensed under a FUCK ALL OF YOUR STUPID LEGAL SHIT
+             LICENSE V1.0. I am happy for you to share anything I post here as
+             long as you have a clear conscience; this includes but need not
+             be limited to: copies in part or in whole, derivative works,
+             commercial works, commercially unsuccessful works, blasphemous
+             works (strongly encouraged), any edition of Microsoft Works, etc.
+             I do not expect any form of attribution. It is not my intention 
+             to limit your actions with respect to sharing my work in any way.
+        -->
+        <div class="inner">
+            <a href="http://www.kopimi.com/kopimi">
+                <img class="kopimi" src="/assets/images/pages/foot/kopimi.png">
+            </a>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

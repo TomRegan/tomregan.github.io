@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>things i am currently doing re: computers - </title>
+    <meta name="description" content="things i am currently doing re: computers" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="">
+                
+                    <img src="/assets/images/pages/all/profile.png" alt="things i am currently doing re: computers" />
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2012-08-12">12 Aug 2012</time>
+	</span>
+
+        <h1 class="post-title">Unit Testing In C With Check</h1>
+
+	<span class="post-meta">
+	
+		posted in
+		
+		    c
+		
+	
+	</span>
+
+        <section class="post-content">
+            <h3>Pushy</h3>
+
+<p>I&#39;ve been developing a cheerfully indolent little HTTP server for some
+time now, as one of those &#39;learn-more-c&#39;, &#39;learn-TDD&#39; projects that
+I imagine nearly everyone has lying around, half neglected.</p>
+
+<p>You can see the code for <a href="https://github.com/TomRegan/pushy">pushy on github</a>.</p>
+
+<p>I&#39;ve also been familiarizing myself with the HTTP RFCs as I go, so I was
+planning to add a <a id="reverse-pooky"></a><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.15">414 response</a>^[<a href="#pookie">1</a>]
+to pushy&#39;s repertoire, which I reckoned
+would take me about 30 minutes, but I have the TDD policy on this
+project, so <em>naturally</em> I can&#39;t write a line of code until there&#39;s
+a failing test. I&#39;m on a new machine, so I need to install 
+<a href="http://check.sourceforge.net/">Check</a>.</p>
+
+<p>Let the games commence.</p>
+
+<h3>Install MacPorts</h3>
+
+<p>MacPorts is available from the <a href="http://www.macports.org/">MacPorts project website</a>.
+Once you have this, installing Check should be as simple as <code>port install check</code>.</p>
+
+<h3>Get the tutorial project</h3>
+
+<p>You&#39;ll be pleased to know that Check comes with a <em>wildly</em> overcomplicated 
+tutorial.</p>
+
+<p>On my system the Check install includes a set of tutorial files in 
+<code>/opt/local/share/doc/check/example</code>. If you don&#39;t find anything here
+it should be possible to query your package manager, for instance
+<code>port contents check</code>, or <code>rpm -ql &lt;package-name&gt;</code>,
+<code>dpkg -L &lt;package-name&gt;</code>, depending on your poison.</p>
+
+<p>Create a working directory and copy the tutorial files there:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mkdir check-tutorial
+cp -r /opt/local/share/doc/check/example check-tutorial/
+</code></pre></div>
+<h3>Build the project</h3>
+
+<p>That&#39;s easy, isn&#39;t it? I checked the README, and saw I needed to
+grab the following dependencies:
+* Autoconf
+* Automake
+* Libtool</p>
+
+<p>And then it should be a case of:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">autoreconf --install
+./configure
+make
+make check
+</code></pre></div>
+<p>So, I gave that a spin:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">tom@binky:check-tutorial:$ autoreconf --install
+glibtoolize: Consider adding `AC_CONFIG_MACRO_DIR([m4])&#39; to configure.ac and
+glibtoolize: rerunning glibtoolize, to keep the correct libtool macros in-tree.
+glibtoolize: Consider adding `-I m4&#39; to ACLOCAL_AMFLAGS in Makefile.am.
+automake: warnings are treated as errors
+/opt/local/share/automake-1.12/am/ltlibrary.am: warning: &#39;libmoney.la&#39;: linking libtool libraries using a non-POSIX
+/opt/local/share/automake-1.12/am/ltlibrary.am: archiver requires &#39;AM_PROG_AR&#39; in &#39;configure.ac&#39;
+src/Makefile.am:3:   while processing Libtool library &#39;libmoney.la&#39;
+tests/Makefile.am:5: warning: compiling &#39;check_money.c&#39; with per-target flags requires &#39;AM_PROG_CC_C_O&#39; in &#39;configure.ac&#39;
+autoreconf: automake failed with exit status: 1
+</code></pre></div>
+<p>And fell very much at the first hurdle. Still, those are some sensible
+errors so it should be easy to fix. First I added the missing macros, as
+directed by the output, which led to the following changes to <code>Makefile.am</code>:</p>
+
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">--- /opt/local/share/doc/check/example/Makefile.am 2012-08-10 22:56:02.000000000 +0100</span>
+<span class="gi">+++ Makefile.am 2012-08-12 15:21:39.000000000 +0100</span>
+<span class="gu">@@ -1,5 +1,3 @@</span>
+ ## Process this file with automake to produce Makefile.in
+  
+<span class="gi">+SUBDIRS = src . tests</span>
+<span class="gi">+</span>
+<span class="gi">+ACLOCAL_AMFLAGS = -I m4</span>
+<span class="gd">-SUBDIRS = src . tests</span></code></pre></div>
+
+<p>I also added <code>AC_CONFIG_MACRO_DIR([m4])</code> to <code>configure.ac</code> and created
+the corresponding directory in the project:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">tom@binky:check-tutorial:$ mkdir m4
+</code></pre></div>
+<p>Now I get:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">tom@binky:check-tutorial:$ autoreconf --install
+...
+/opt/local/share/automake-1.12/am/ltlibrary.am: archiver requires &#39;AM_PROG_AR&#39; in &#39;configure.ac&#39;
+</code></pre></div>
+<p>So I add the final macro to <code>configure.ac</code> which results in the
+following changes:</p>
+
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">--- /opt/local/share/doc/check/example/configure.ac 2012-08-10 22:56:02.000000000 +0100</span>
+<span class="gi">+++ configure.ac 2012-08-12 15:24:38.000000000 +0100</span>
+<span class="gu">@@ -10,16 +10,13 @@</span>
+# place to put some extra build scripts installed
+AC_CONFIG_AUX_DIR([build-aux])
+
+<span class="gi">+AC_CONFIG_MACRO_DIR([m4])</span>
+<span class="gi">+</span>
+# fairly severe build strictness
+# change foreign to gnu or gnits to comply with gnu standards
+AM_INIT_AUTOMAKE([-Wall -Werror foreign 1.9.6])
+
+# Checks for programs.
+<span class="gi">+AM_PROG_CC_C_O</span>
+<span class="gd">-AC_PROG_CC</span>
+AC_PROG_LIBTOOL
+<span class="gi">+AM_PROG_AR</span>
+
+# Checks for libraries.</code></pre></div>
+
+<p>And finally it passes this step.</p>
+
+<p>The next instruction is <code>./configure</code>, which in my experience is <em>always</em> 
+a one-stop-shop for merriment. It wasn&#39;t too bad in this instance.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">checking for check - version &gt;= 0.8.2... no
+*** Could not run check test program, checking why...
+*** The test program failed to compile or link. See the file config.log for
+*** the exact error that occured.
+configure: error: check not found
+</code></pre></div>
+<p>This is to be expected, because my environment doesn&#39;t know about the
+includes MacPorts installs under <code>/opt</code>. To fix, I first check the variable
+<code>C_INCLUDE_PATH</code> is unset:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">echo $C_INCLUDE_PATH
+</code></pre></div>
+<p>And then set it:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">export C_INCLUDE_PATH=/opt/local/include
+</code></pre></div>
+<p>If it already has some value, you should prepend the new path to the old,
+i.e.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">export C_INCLUDE_PATH=/opt/local/include:$C_INCLUDE_PATH
+</code></pre></div>
+<p>And then, run <code>./configure</code> a final time. Next, <code>make</code>. If I were a betting
+man I&#39;d put money on the linker having a great big episode.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">tom@binky:check-tutorial:$ make; make check
+...
+/bin/sh ../libtool --tag=CC   --mode=link gcc  -g -O2   -o check_money check_money-check_money.o ../src/libmoney.la -lcheck 
+libtool: link: gcc -g -O2 -o .libs/check_money check_money-check_money.o  ../src/.libs/libmoney.dylib -lcheck
+ld: library not found for -lcheck
+collect2: ld returned 1 exit status
+make[2]: *** [check_money] Error 1
+make[1]: *** [check-am] Error 2
+make: *** [check-recursive] Error 1
+</code></pre></div>
+<p>I love it when I&#39;m right. No, really. Love it.</p>
+
+<p>So the most useful line in there is <code>ld: library not found for -lcheck</code>,
+which tells me the linker (<code>ld</code>) can&#39;t find <code>libcheck</code>. Because I&#39;m using
+a Mac I know that I&#39;m looking for the <code>.dylib</code> files that were installed
+with Check. On linux I expect they would be <code>.so</code> files. In my case
+these happen to be in <code>/opt/local/lib</code>, so I need to make the environment
+aware of this location by setting <code>LIBRARY_PATH</code> (linux: <code>LD_LIBRARY_PATH</code>):</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">export LIBRARY_PATH=/opt/local/lib
+</code></pre></div>
+<p>And finally:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">tom@binky:check-tutorial:$ make check
+Making check in src
+...
+Running suite(s): Money
+100%: Checks: 3, Failures: 0, Errors: 0
+PASS: check_money
+=============
+1 test passed
+=============
+</code></pre></div>
+<p>Job done.</p>
+
+<h3>Why&#39;s it so painful?</h3>
+
+<p>The tutorial fails at the first step and it can be hard to understand why.
+I&#39;ve never had the pleasure of using autotools, but I&#39;m beginning to see why there&#39;s some
+anti-gnu sentiment in the Unix-sphere. It&#39;s a tremendously complicated
+build for a very, very simple project.</p>
+
+<p>It doesn&#39;t help that many of the links to documentation on the Check
+project page are <a href="http://check.sourceforge.net/doc/check_html/index.html">broken</a>.</p>
+
+<p>I happen to think
+that a test framework should be independent of the build system
+(<a href="http://www.youtube.com/watch?v=yRhq-yO1KN8">you may say I&#39;m a dreamer</a>),
+so I&#39;m going to pursue this to some sort of logical, probably painful,
+conclusion.</p>
+
+<h3>What have we achieved?</h3>
+
+<p>Well, nothing that I set out to achieve, which was having a working
+test suite so I can add a simple feature to my server. Expect a
+<em><a href="http://www.youtube.com/watch?v=hEc-9hIdK0E">Part Deux</a></em>
+in the near-ish future.</p>
+
+<p><a id="pookie"></a>
+<sup>[<a href="#reverse-pooky">1</a>]</sup> <em>and yes, this is related to a buffer over-run bug, thank you for asking.</em></p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/pages/all/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                	  <!-- Author Name -->
+                    	  <h4> Tom Regan </h4>
+                    	  <!-- Author Bio -->
+                    	  <p> 
+                    	    I write things for computers, also people.
+                    	  </p>
+			  <p>
+			    <i class="fa fa-github-alt"></i>
+			    <a href="http://github.com/TomRegan">GitHub</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-comment"></i>
+			    <a href="http://twitter.com/TomRegan">@TomRegan</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-key"></i>
+			    <a href="http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x53D17134DC8B2BFF">
+			    DC8B2BFF
+			    </a>
+			  </p>
+			</article>
+                </section>                
+            
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <!-- This page is licensed under a FUCK ALL OF YOUR STUPID LEGAL SHIT
+             LICENSE V1.0. I am happy for you to share anything I post here as
+             long as you have a clear conscience; this includes but need not
+             be limited to: copies in part or in whole, derivative works,
+             commercial works, commercially unsuccessful works, blasphemous
+             works (strongly encouraged), any edition of Microsoft Works, etc.
+             I do not expect any form of attribution. It is not my intention 
+             to limit your actions with respect to sharing my work in any way.
+        -->
+        <div class="inner">
+            <a href="http://www.kopimi.com/kopimi">
+                <img class="kopimi" src="/assets/images/pages/foot/kopimi.png">
+            </a>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

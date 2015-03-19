@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>things i am currently doing re: computers - </title>
+    <meta name="description" content="things i am currently doing re: computers" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="">
+                
+                    <img src="/assets/images/pages/all/profile.png" alt="things i am currently doing re: computers" />
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2013-09-08">08 Sep 2013</time>
+	</span>
+
+        <h1 class="post-title">Switching Text Editors</h1>
+
+	<span class="post-meta">
+	
+		posted in
+		
+		    lisp
+		
+	
+	</span>
+
+        <section class="post-content">
+            <p>After 7 years, I&#39;m finally doing the dirty dead: jumping off the
+Vim ship, into the [<em>adjective</em>], [<em>adjective</em>] something [<em>noun</em>]
+that is emacs. There follows a brief description of the process so far.</p>
+
+<p><img src="https://farm7.staticflickr.com/6173/6169267550_753ebd220b.jpg" alt="Gnu by Dean Gugler at flickr CC BY-NC"></p>
+
+<p><em>
+<small>
+<a href="https://secure.flickr.com/photos/67335469@N00/6169267550/in/photolist-apa7iU-c2h7bf-8dNaw4-9YRiUm-9YNqoc-k92NB-c2eXqw-Ahtjx-3WtN1f-uGgQz-8V1EY6-4JZqBQ-4mQasz-4mtRjz-5rnwNR-d8zxLo-64pxUe-pZvNx-mXKrB-6gmUKL-6o3mJG-jsC8d-5pxSjD-9YS6ur-9YS8de-9YS6ik-5dyNy2-5dD91Q-5dD8WU-5dD9d5-5pxTdp-9YNrDc-9YRjtw-7o6xWC-7o6xXC-9YRkJN-9YRk5J-8PszGo-avTotn-9YNpeM-9YNqWe-fcymYw-fcysNy-6gcEeC-5ugFB8-8Sv3V6-8SyDkf-8Uxpak-8UAs4b-8UArQh-8UArwG">Gnu</a>
+by
+<a href="https://secure.flickr.com/photos/ontario_wanderer/">Dean Gugler</a>
+at flickr
+(<a href="https://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC</a>)
+</small>
+</em></p>
+
+<h3>Install a recent version of emacs</h3>
+
+<p>My version of OS X has emacs 22.2 installed, which is way out of
+date. To install the most recent version, I used homebrew.</p>
+
+<p>So, first step, <code>brew install emacs</code>. There are a few options (which
+you could see with <code>brew options emacs</code>) that make it possible to build
+a cocoa version amongst other things.</p>
+
+<h3>emacs&#39; little MELPA</h3>
+
+<p>One of my aims was to create a configuration from scratch that I could
+understand, and that matched the functionality of my Vim set-up.</p>
+
+<p>I created a fresh <code>init.el</code> throwing out the old <code>.emacs.d</code> directory I&#39;d
+been experimenting with, and added the MELPA repository as described
+<a href="https://github.com/milkypostman/melpa">here</a>. The standard repository is
+a bit of a bare cupboard compared with MELPA. The configuration
+to add a repo is a simple few lines of elisp which could go in an
+<code>init.el</code> file:</p>
+
+<div class="highlight"><pre><code class="language-lisp" data-lang="lisp"><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;package</span><span class="p">)</span>
+ <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;package-archives</span>
+   <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;melpa&quot;</span> <span class="o">.</span> <span class="s">&quot;http://melpa.milkbox.net/packages/&quot;</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
+ <span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span></code></pre></div>
+
+<p>then restart emacs and <code>M-x package-list-packages</code>. I poked around for a
+while and came up with a short list of packages I thought might be useful.</p>
+
+<h3>elisp-p?</h3>
+
+<p>I haven&#39;t written anything useful using lisp up to now, which was actually
+one of the attractions of using emacs. I plan to use emacs
+on a couple of machines, and I want to be able to check my <a href="https://github.com/TomRegan/home-service">configuration
+repository</a>
+out of github, start emacs and have all my packages install
+automagically. The following achieves this:</p>
+
+<div class="highlight"><pre><code class="language-lisp" data-lang="lisp"><span class="p">(</span><span class="nb">defvar</span> <span class="nv">packages</span>
+  <span class="o">&#39;</span><span class="p">(</span><span class="nv">busybee-theme</span>
+    <span class="nv">git-commit-mode</span>
+    <span class="nv">git-rebase-mode</span>
+    <span class="nv">google-c-style</span>
+    <span class="nv">ido-ubiquitous</span>
+    <span class="nv">markdown-mode</span>
+    <span class="nv">markdown-mode+</span>
+    <span class="nv">rainbow-mode</span>
+    <span class="nv">undo-tree</span>
+<span class="p">))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">packages-installed-p</span> <span class="p">(</span><span class="nv">packages</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">not</span> <span class="nv">packages</span><span class="p">)</span> <span class="no">t</span>
+    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nv">package-installed-p</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">packages</span><span class="p">))</span> 
+    <span class="p">(</span><span class="nv">packages-installed-p</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">packages</span><span class="p">))</span>
+      <span class="no">nil</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">install-packages</span> <span class="p">(</span><span class="nv">packages</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">mapc</span> <span class="ss">&#39;install-package</span> <span class="nv">packages</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">install-package</span> <span class="p">(</span><span class="nc">package</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nv">package-installed-p</span> <span class="nc">package</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">package-install</span> <span class="nc">package</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">install-missing-packages</span> <span class="p">()</span>
+  <span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nv">packages-installed-p</span> <span class="nv">packages</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">package-refresh-contents</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">install-packages</span> <span class="nv">packages</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nv">install-missing-packages</span><span class="p">)</span></code></pre></div>
+    
+
+<p>When packages are missing, they are installed; there&#39;s no automatic cleanup,
+so installed packages which aren&#39;t listed are ignored rather than deleted.</p>
+
+<p>The remainder of my installation is arranged like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">.emacs.d/
+|- custom/
+|  |- packages.el  ;; manages packages
+|  `- editor.el    ;; contains editor settings
+|- elpa/
+`- init.el         ;; sources files from custom/
+</code></pre></div>
+<p>I&#39;m working at the moment to configure a modern environment for large C
+projects, which will doubtless lead to another tedious post in the
+near future.</p>
+
+<p>My emacs directory, which might serve as some kind of modest example to the
+completely and utterly uninitiated, is <a href="https://github.com/TomRegan/home-service/tree/develop/emacs.d">here</a>.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/pages/all/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                	  <!-- Author Name -->
+                    	  <h4> Tom Regan </h4>
+                    	  <!-- Author Bio -->
+                    	  <p> 
+                    	    I write things for computers, also people.
+                    	  </p>
+			  <p>
+			    <i class="fa fa-github-alt"></i>
+			    <a href="http://github.com/TomRegan">GitHub</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-comment"></i>
+			    <a href="http://twitter.com/TomRegan">@TomRegan</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-key"></i>
+			    <a href="http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x53D17134DC8B2BFF">
+			    DC8B2BFF
+			    </a>
+			  </p>
+			</article>
+                </section>                
+            
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <!-- This page is licensed under a FUCK ALL OF YOUR STUPID LEGAL SHIT
+             LICENSE V1.0. I am happy for you to share anything I post here as
+             long as you have a clear conscience; this includes but need not
+             be limited to: copies in part or in whole, derivative works,
+             commercial works, commercially unsuccessful works, blasphemous
+             works (strongly encouraged), any edition of Microsoft Works, etc.
+             I do not expect any form of attribution. It is not my intention 
+             to limit your actions with respect to sharing my work in any way.
+        -->
+        <div class="inner">
+            <a href="http://www.kopimi.com/kopimi">
+                <img class="kopimi" src="/assets/images/pages/foot/kopimi.png">
+            </a>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

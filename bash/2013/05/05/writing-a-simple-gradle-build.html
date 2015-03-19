@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>things i am currently doing re: computers - </title>
+    <meta name="description" content="things i am currently doing re: computers" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="">
+                
+                    <img src="/assets/images/pages/all/profile.png" alt="things i am currently doing re: computers" />
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2013-05-05">05 May 2013</time>
+	</span>
+
+        <h1 class="post-title">Writing A Simple Gradle Build</h1>
+
+	<span class="post-meta">
+	
+		posted in
+		
+		    bash
+		
+	
+	</span>
+
+        <section class="post-content">
+            <p>&#39;Build as code&#39; is one of those dreadful smells you start to recognise after
+a while, so gradle, which is a highly free-form system, is not my first choice
+for complex builds, but it is a beautiful way to build a simple set of modules.
+I&#39;ve written something along the lines of the following build enough times for
+me to make a note of it for future copy-pasting, so here it is.</p>
+
+<div class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;base&#39;</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;java&#39;</span>
+
+<span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">testCompile</span> <span class="s1">&#39;junit:junit:4+&#39;</span>
+<span class="o">}</span></code></pre></div>
+
+<p>And run with <code>gradle check</code> for tests or <code>gradle assemble</code> to create a jar.
+Gradle will assemble the jar in <code>build/libs</code>.</p>
+
+<p>Executable jars need extra configuration to create a Main-Class entry in
+<code>MANIFEST.MF</code>.</p>
+
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gi">+jar {</span>
+<span class="gi">+    manifest { attributes &#39;Main-Class&#39;: &#39;io.github.tomregan.Application&#39; }</span>
+<span class="gi">+}</span></code></pre></div>
+
+<p>And to build a number of modules, stick <code>settings.gradle</code> in the modules` root,
+which would look like this:</p>
+
+<div class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">include</span> <span class="s1">&#39;module-core&#39;</span>
+<span class="n">include</span> <span class="s1">&#39;module-demo-app&#39;</span></code></pre></div>
+
+<p>If you had the following.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">modules
+|- module-core
+|  `- build.gradle
+|- module-demo-app
+|  `- build.gradle
+`- settings.gradle
+</code></pre></div>
+<p>There&#39;s loads of not very good documentation at <a href="https://www.google.co.uk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;cad=rja&amp;ved=0CDMQFjAA&amp;url=http%3A%2F%2Fwww.gradle.org%2Fdocumentation&amp;ei=6y2GUZWJN8OZhQeO4ICIBQ&amp;usg=AFQjCNElnzzs-KfHqp0WfL-zuo90jM3Kuw&amp;sig2=KsvVY1h0a7zlTydwiA71TA&amp;bvm=bv.45960087,d.ZG4">gradle.org</a>,
+but the best source of information is the build of gradle itself, which is
+available <a href="https://github.com/gradle/gradle">over on github</a>.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/pages/all/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                	  <!-- Author Name -->
+                    	  <h4> Tom Regan </h4>
+                    	  <!-- Author Bio -->
+                    	  <p> 
+                    	    I write things for computers, also people.
+                    	  </p>
+			  <p>
+			    <i class="fa fa-github-alt"></i>
+			    <a href="http://github.com/TomRegan">GitHub</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-comment"></i>
+			    <a href="http://twitter.com/TomRegan">@TomRegan</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-key"></i>
+			    <a href="http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x53D17134DC8B2BFF">
+			    DC8B2BFF
+			    </a>
+			  </p>
+			</article>
+                </section>                
+            
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <!-- This page is licensed under a FUCK ALL OF YOUR STUPID LEGAL SHIT
+             LICENSE V1.0. I am happy for you to share anything I post here as
+             long as you have a clear conscience; this includes but need not
+             be limited to: copies in part or in whole, derivative works,
+             commercial works, commercially unsuccessful works, blasphemous
+             works (strongly encouraged), any edition of Microsoft Works, etc.
+             I do not expect any form of attribution. It is not my intention 
+             to limit your actions with respect to sharing my work in any way.
+        -->
+        <div class="inner">
+            <a href="http://www.kopimi.com/kopimi">
+                <img class="kopimi" src="/assets/images/pages/foot/kopimi.png">
+            </a>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

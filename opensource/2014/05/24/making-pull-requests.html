@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>things i am currently doing re: computers - </title>
+    <meta name="description" content="things i am currently doing re: computers" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="">
+                
+                    <img src="/assets/images/pages/all/profile.png" alt="things i am currently doing re: computers" />
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2014-05-24">24 May 2014</time>
+	</span>
+
+        <h1 class="post-title">Making Pull Requests</h1>
+
+	<span class="post-meta">
+	
+		posted in
+		
+		    opensource
+		
+	
+	</span>
+
+        <section class="post-content">
+            <p><img src="https://octodex.github.com/images/nyantocat.gif" style="width: 250px"/></p>
+
+<p>I just got my first pull request accepted!</p>
+
+<p>Excited much? Yes I am. I have wanted to contribute to an open source project
+for a really, really long time. I am unreasonably psyched about the <em>whole</em>
+experience right now.</p>
+
+<p><strong>Trigger warning</strong>: I am going to be unironically enthusiastic. Sorry.</p>
+
+<h2>Here is how I did the do</h2>
+
+<p>It was unbelievably easy. I noticed in the github news stream that one of
+my friends had starred a project, and it looked kind of cool. The project
+was <a href="https://github.com/micahflee/onionshare"><code>micahflee/onionshare</code></a> and I
+liked it because I like <a href="https://www.torproject.org/">Tor</a> and I think
+onionshare is awesome and I can absolutely see someone needing to use it.
+By the way, I can&#39;t overemphasize how important Tor is. You can totally
+<a href="https://cloud.torproject.org/">help out</a> even if you just have some extra
+<a href="https://www.torproject.org/donate/donate.html.en">cash to throw at it</a>.</p>
+
+<p>So I looked at the open issues. At the time there were two similar issues, one
+about <a href="https://github.com/micahflee/onionshare/issues/8">Localization</a> and
+a pull request to <a href="https://github.com/micahflee/onionshare/pull/13">Add Spanish translations</a>.
+That&#39;s when I realised &quot;I can read in other languages, okay, not at all well,
+but I can definately do it!&quot; So I cloned <code>micahflee/onionshare</code>. The code
+was very nice, I had no trouble figuring out what I would have to do, I could
+see that the i18n strings were loaded from a json file.</p>
+
+<p>I spent the next about an hour researching what I hoped were good translations
+by typing what I thought was the correct phrasing into google.fr, and checking
+how well it matched what French speakers actually use on message boards, in
+blogs and so on. It was a bit of a challenge to match the style of language in
+the English translation, and I think I sucked pretty hard.</p>
+
+<p>I forked <code>micahflee/onionshare</code> to create my own repo, and cloned it. On my
+machine I edited the <code>strings.json</code> file with my lovingly collected French
+words, staged, committed and pushed.</p>
+
+<p>Then I got stage fright. My translations are all wrong. The patch is totally
+trivial. I&#39;m not even French. But I really wanted to contribute something,
+and that pushed me to create the pull request. It sounds like a little thing,
+but I suppose it&#39;s a bit like being new at school, it feels like there is a
+lot of pressure to make a good impression. It <em>is</em> a little thing, but it was
+actually the hardest part.</p>
+
+<p>It took maybe an hour before my pull request was merged, and it was pretty
+awesome. Unlike when I commit code at work,
+<a href="https://github.com/micahflee/onionshare/pull/14#issuecomment-44108128">I got this</a>:</p>
+
+<blockquote>
+<p>Thanks so much.</p>
+</blockquote>
+
+<p>Somebody immediately gave a shit. That felt good.</p>
+
+<h2>Why so long?</h2>
+
+<p>I&#39;ve been a software engineer for two years, and it&#39;s taken me all this time to
+make a contribution. I think gaining the ability to contribute has been
+a combination of confidence that I <em>have</em> something to contribute, finding a
+project I strongly identify with, and a bunch of great blogs and other sources
+of engouragement online...</p>
+
+<h3>Here are a bunch of great blogs and resources</h3>
+
+<p><a href="http://words.steveklabnik.com/how-to-be-an-open-source-gardener">How to be an open source gardener</a></p>
+
+<p>The big takeaway from this was that you don&#39;t need to be a huge personality to
+start making contributions to open source. This was a <em>major</em> motivator.</p>
+
+<p><a href="http://codefirefox.com/">codefirefox.com</a></p>
+
+<p>Watching the codefirefox videos made me think &quot;I could totally contribute to
+firefox&quot;, and if I could do that I could do anything. I could be like superman
+(⌥). But with typing. The videos are a really good introduction to some common
+open source processes with what I guess is just common sense advice.</p>
+
+<p><a href="https://twitter.com/b0rk">@b0rk</a></p>
+
+<p>Julia Evans is just infectiously enthusiastic about programming. I both read
+the blog and watched the video about her writing an operating system in <a href="http://www.rust-lang.org/">rust</a>
+and it made me want to get involved with awesome projects and people. There
+are a bunch of people on Twitter who are extremely motivational, I&#39;m sure
+I could compile a list, but the rust talk was kind of a big deal.</p>
+
+<h2>Why do?</h2>
+
+<p>Here are the positives from my tiny little open source experience and why I
+would do it again:</p>
+
+<ul>
+<li>I&#39;m getting brand new skills, I am a Level 1 Open Source Contributor
+(chaotic good)</li>
+<li>I feel unreasonably good about helping out</li>
+<li>It made me nervous, but I did it anyway and that felt like a little win</li>
+<li>Github is gaming me (with contribution counts and buttons to click and
+oh the commit chart) I CAN BEAT YOU GITHUB!</li>
+<li>There is a lot less pressure on me now. The &#39;look at some issues, say hi to
+some dudes, submit a patch&#39; hoopla is no longer completely foreign</li>
+</ul>
+
+<p>I&#39;m sure there are lots of other good reasons too. There were no
+downsides.</p>
+
+<p>It was awesome!</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/pages/all/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                	  <!-- Author Name -->
+                    	  <h4> Tom Regan </h4>
+                    	  <!-- Author Bio -->
+                    	  <p> 
+                    	    I write things for computers, also people.
+                    	  </p>
+			  <p>
+			    <i class="fa fa-github-alt"></i>
+			    <a href="http://github.com/TomRegan">GitHub</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-comment"></i>
+			    <a href="http://twitter.com/TomRegan">@TomRegan</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-key"></i>
+			    <a href="http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x53D17134DC8B2BFF">
+			    DC8B2BFF
+			    </a>
+			  </p>
+			</article>
+                </section>                
+            
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <!-- This page is licensed under a FUCK ALL OF YOUR STUPID LEGAL SHIT
+             LICENSE V1.0. I am happy for you to share anything I post here as
+             long as you have a clear conscience; this includes but need not
+             be limited to: copies in part or in whole, derivative works,
+             commercial works, commercially unsuccessful works, blasphemous
+             works (strongly encouraged), any edition of Microsoft Works, etc.
+             I do not expect any form of attribution. It is not my intention 
+             to limit your actions with respect to sharing my work in any way.
+        -->
+        <div class="inner">
+            <a href="http://www.kopimi.com/kopimi">
+                <img class="kopimi" src="/assets/images/pages/foot/kopimi.png">
+            </a>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

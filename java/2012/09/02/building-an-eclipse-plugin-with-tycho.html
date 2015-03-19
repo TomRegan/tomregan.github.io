@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>things i am currently doing re: computers - </title>
+    <meta name="description" content="things i am currently doing re: computers" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="">
+                
+                    <img src="/assets/images/pages/all/profile.png" alt="things i am currently doing re: computers" />
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2012-09-02">02 Sep 2012</time>
+	</span>
+
+        <h1 class="post-title">Building An Eclipse Plugin With Tycho</h1>
+
+	<span class="post-meta">
+	
+		posted in
+		
+		    java
+		
+	
+	</span>
+
+        <section class="post-content">
+            <p>I spent a couple of days this week converting the build of an Eclipse
+plugin project from Ant with Ivy to Maven using the Tycho plugins.
+I&#39;ll demonstrate the build with an example project.</p>
+
+<p>First off I already have the following pre-requisites:</p>
+
+<ul>
+<li>Eclipse 4.2</li>
+<li>Eclipse <a href="http://www.eclipse.org/pde/">PDE</a></li>
+<li>Maven 3</li>
+</ul>
+
+<h3>Create a plugin project in Eclipse</h3>
+
+<p>I created the following:</p>
+
+<ul>
+<li>a plugin, with some simple functionality</li>
+<li>a feature project (features are just <a href="https://www.google.co.uk/search?q=what+is+an+eclipse+feature&amp;ie=utf-8&amp;oe=utf-8&amp;aq=t&amp;rls=org.mozilla:en-GB:official&amp;client=firefox-a&amp;channel=fflb#hl=en&amp;client=firefox-a&amp;hs=UnU&amp;rls=org.mozilla:en-GB:official&amp;channel=fflb&amp;q=eclipse+feature&amp;tbs=dfn:1&amp;tbo=u&amp;sa=X&amp;ei=tUpDUIT6Coqp0QWR4oCQAw&amp;ved=0CCAQkQ4&amp;bav=on.2,or.r_gc.r_pw.r_qf.&amp;fp=b566ea27a82450a4&amp;biw=1440&amp;bih=787">groupings of related plugins</a>)</li>
+<li>an update site, which acts as a distributable package</li>
+</ul>
+
+<p>Each project is a necessary part of the build: the site contains a feature,
+and the feature contains one or more plugins. That&#39;s just how Eclipse
+likes it.</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Russian_Dolls.jpg/800px-Russian_Dolls.jpg" alt=""></p>
+
+<p>Without any further ado...</p>
+
+<h3>Create a plugin</h3>
+
+<p><code>File -&gt; New -&gt; Plug-in project</code></p>
+
+<p>I created a new plug-in project called com.example.plugin, and selected
+the &#39;Hello, World Command&#39; template. I&#39;ve got two points to make about this:</p>
+
+<ol>
+<li><p>Does anyone really say &#39;Hello, World&#39; (with the comma)? Whenever
+I read this it sounds like the beginning of a
+<a href="http://www.youtube.com/watch?v=HiFEzc_gsuw">halting Shatnarian monologue</a></p></li>
+<li><p>The version qualifier. DO NOT ALTER it. DO NOT! DO... NOT!</p></li>
+</ol>
+
+<p>The version the plug-in wizard will assign to a new plugin is 
+&#39;1.0.0.qualifier&#39;. It&#39;s important to know that &#39;.qualifier&#39; is a
+token that is replaced during the build with a timestamp (or a version
+scheme of your choosing, if you&#39;re patient and like a challenge).</p>
+
+<p>You can fire up the project from Eclipse; it works off the bat,
+and it isn&#39;t so exciting that you&#39;ll forget to carry on reading.</p>
+
+<h3>Create a feature</h3>
+
+<p><code>File -&gt; New -&gt; Feature project</code></p>
+
+<p>I called mine com.example.feature.</p>
+
+<p>After clicking &#39;Next&#39; I can select &#39;Initialize from the  plug-ins list&#39;
+and check the entry &#39;com.example.plugin (1.0.0.qualifier)&#39; to include
+it in my feature.</p>
+
+<h3>Create a category definition</h3>
+
+<p>Finally, so I can install my plugin, I created a category. I created
+an empty general project called com.example.site, and created a new 
+category definition within it.</p>
+
+<p><code>File -&gt; New -&gt; Project</code></p>
+
+<p><code>File -&gt; New -&gt; Other -&gt; Plug-in Development -&gt; Category Definition</code></p>
+
+<p>Finally, I go to the <code>category.xml</code> and open up Eclipse&#39;s spiffy
+Category Manifest Editor, and add a &#39;New Category&#39;, which I called
+com.example.category (because I was bored of guessing what I ought to
+call Eclipse components), and under it added com.example.feature.</p>
+
+<p>You can get the example project <a href="downloads/code/TychoExampleFeature.tar.gz">here</a>.</p>
+
+<h3>The time has come to Mavenise</h3>
+
+<p><em><a href="http://www.youtube.com/watch?v=Xu3FTEmN-eg">Don&#39;t hold back</a></em>.</p>
+
+<p>I haven&#39;t used Maven 3 before, but it was cheerfully simple
+to write the build.</p>
+
+<p>I found that if you try to use a version range to specify the Tycho
+dependencies, rather than a property (I used <code>tycho-version</code>), the
+build will explode into a bazillion lines of backtrace.</p>
+
+<p>This is a regular modular Maven project. The parent pom looks like
+this:</p>
+
+<p>Each module&#39;s pom looks roughly the same. The packaging and artifactId
+elements must be changed. I also altered the name. The plugin <code>pom.xml</code>:</p>
+
+<p>The feature <code>pom.xml</code>:</p>
+
+<p>And the update site <code>pom.xml</code>:</p>
+
+<p>Now, running <code>mvn clean package</code> results in the warm Maven feeling:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] parentpom ......................................... SUCCESS [0.060s]
+[INFO] TychoExamplePlugin ................................ SUCCESS [1.042s]
+[INFO] TychoExampleFeature ............................... SUCCESS [0.381s]
+[INFO] TychoExampleRepository ............................ SUCCESS [2.072s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 15.726s
+[INFO] Finished at: Sun Sep 02 12:57:41 BST 2012
+[INFO] Final Memory: 35M/81M
+[INFO] ------------------------------------------------------------------------
+</code></pre></div>
+<p><em>Verily, woot</em>.</p>
+
+<h3>More to do</h3>
+
+<p>I&#39;ve read a bunch of documentation and failed so far to get simple things
+like versioning, deployment to a Maven repository, and
+unit tests working. I&#39;ll follow up if these things ever materialise, 
+meanwhile, here are some links:</p>
+
+<ul>
+<li><a href="http://wiki.eclipse.org/Tycho/Packaging_Types#eclipse-test-plugin">Testing with Tycho</a></li>
+<li><a href="http://www.eclipse.org/tycho/sitedocs/tycho-packaging-plugin/build-qualifier-mojo.html">Versioning the build</a>,
+and a <a href="http://software.2206966.n2.nabble.com/Tycho-and-feature-versioning-td3651356.html">discussion which touches on the nuances of versioning a build</a>.</li>
+</ul>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/pages/all/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                	  <!-- Author Name -->
+                    	  <h4> Tom Regan </h4>
+                    	  <!-- Author Bio -->
+                    	  <p> 
+                    	    I write things for computers, also people.
+                    	  </p>
+			  <p>
+			    <i class="fa fa-github-alt"></i>
+			    <a href="http://github.com/TomRegan">GitHub</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-comment"></i>
+			    <a href="http://twitter.com/TomRegan">@TomRegan</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-key"></i>
+			    <a href="http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x53D17134DC8B2BFF">
+			    DC8B2BFF
+			    </a>
+			  </p>
+			</article>
+                </section>                
+            
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <!-- This page is licensed under a FUCK ALL OF YOUR STUPID LEGAL SHIT
+             LICENSE V1.0. I am happy for you to share anything I post here as
+             long as you have a clear conscience; this includes but need not
+             be limited to: copies in part or in whole, derivative works,
+             commercial works, commercially unsuccessful works, blasphemous
+             works (strongly encouraged), any edition of Microsoft Works, etc.
+             I do not expect any form of attribution. It is not my intention 
+             to limit your actions with respect to sharing my work in any way.
+        -->
+        <div class="inner">
+            <a href="http://www.kopimi.com/kopimi">
+                <img class="kopimi" src="/assets/images/pages/foot/kopimi.png">
+            </a>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

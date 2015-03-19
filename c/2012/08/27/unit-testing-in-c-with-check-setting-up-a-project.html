@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>things i am currently doing re: computers - </title>
+    <meta name="description" content="things i am currently doing re: computers" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="">
+                
+                    <img src="/assets/images/pages/all/profile.png" alt="things i am currently doing re: computers" />
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2012-08-27">27 Aug 2012</time>
+	</span>
+
+        <h1 class="post-title">Unit Testing In C With Check Setting Up A Project</h1>
+
+	<span class="post-meta">
+	
+		posted in
+		
+		    c
+		
+	
+	</span>
+
+        <section class="post-content">
+            <p>In a <a href="blog/2012/08/12/unit-testing-in-c-with-check">previous post</a>
+I went through the steps to run the
+<a href="http://check.sourceforge.net/">Check</a>
+tutorial, had a bit of a whinge about how difficult
+is had all been, and mumbled a bit about coming back when I&#39;d figured
+out how to make everything work on a real project. In fact, that
+was much simpler than I expected.</p>
+
+<p>At the end of this, I&#39;ll have a simple C program with a corresponding
+build that uses the Check testing framework.</p>
+
+<h3>Install Check</h3>
+
+<p>One of the nice things about Check is that you can find it in a lot
+of repositories. Ubuntu, CentOS and MacPorts all have a <code>check</code>
+package, but in the worst case you may have to compile it for your
+platform.</p>
+
+<p>I&#39;m starting out with a fresh Ubuntu install, so I could install Check
+with <code>apt-get</code>, but for the sake of it, I&#39;m going to compile it instead.
+First I needed to get a bit of a tool chain set up:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">apt-get install git build-essential curl
+</code></pre></div>
+<p>Then, I downloaded Check from <a href="http://sourceforge.net/projects/check/">sourceforge.net</a>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">curl -L &quot;http://downloads.sourceforge.net/project/check/check/0.9.8/check-0.9.8.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcheck%2Ffiles%2F&amp;ts=1346064997&amp;use_mirror=switch&quot; &gt; check-0.9.8.tar.gz
+</code></pre></div>
+<p>I unzipped <code>check-0.9.8.tar.gz</code> and built it. The Check build uses
+autotools, which is a build technology for people who want to
+collaborate, but with people they don&#39;t like very much.
+Check&#39;s other dependencies are listed in the readme.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">apt-get install automake autoconf libtool pkg-config texinfo
+</code></pre></div>
+<p>Then I built Check.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">autoreconf --install
+./configure
+make
+make install
+</code></pre></div>
+<p>I&#39;m mainly interested in the headers and libraries, which the installation
+puts in <code>/usr/local/include</code> and <code>/usr/local/lib</code>.</p>
+
+<p>During the build, I need to make sure that <code>/usr/local/include</code> is on the
+include path, and <code>/usr/local/lib</code> on the library path.
+If I was building manually with <code>make</code> I would use
+<code>make -L /usr/local/lib -I /usr/local/include</code>. Instead I&#39;ll add this
+to the makefile.</p>
+
+<h3>Create a Project</h3>
+
+<p>I created a <code>project</code> folder containing <code>src</code>, <code>test</code>, <code>include</code> and
+<code>lib</code> directories with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mkdir -p project/{src,test,include,lib}
+</code></pre></div>
+<p>and created the following root makefile in the <code>project</code> directory:</p>
+
+<div class="highlight"><pre><code class="language-make" data-lang="make"><span class="nf">all</span><span class="o">:</span>
+    +<span class="k">$(</span>MAKE<span class="k">)</span> -C src
+    +<span class="k">$(</span>MAKE<span class="k">)</span> -C <span class="nb">test</span>
+
+<span class="nf">check</span><span class="o">:</span>
+    +<span class="k">$(</span>MAKE<span class="k">)</span> -C <span class="nb">test </span>check
+
+<span class="nf">clean</span><span class="o">:</span>
+    +<span class="k">$(</span>MAKE<span class="k">)</span> -C src clean
+    +<span class="k">$(</span>MAKE<span class="k">)</span> -C <span class="nb">test </span>clean</code></pre></div>
+
+<p>I wrote a simple C function to test some implementation:</p>
+
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span>
+<span class="nf">greet</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p>and a corresponding header:</p>
+
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">greet</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span></code></pre></div>
+
+<p>plus a main method.</p>
+
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &quot;greet.h&quot;</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">puts</span><span class="p">(</span><span class="n">greet</span><span class="p">(</span><span class="s">&quot;Tom&quot;</span><span class="p">));</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p>The following <code>Makefile</code> lives in <code>src</code>, and is called by the root
+makefile:</p>
+
+<div class="highlight"><pre><code class="language-make" data-lang="make"><span class="nv">program_NAME</span> <span class="o">:=</span> main
+<span class="nv">program_SRCS</span> <span class="o">:=</span> <span class="k">$(</span>wildcard *.c<span class="k">)</span>
+<span class="nv">program_OBJS</span> <span class="o">:=</span> <span class="k">${</span><span class="nv">program_SRCS</span><span class="p">:.c=.o</span><span class="k">}</span>
+
+<span class="nv">CFLAGS</span> <span class="o">+=</span> -I ../include
+
+<span class="nf">.PHONY</span><span class="o">:</span> <span class="n">all</span> <span class="n">clean</span>
+
+<span class="nf">all</span><span class="o">:</span> <span class="k">$(</span><span class="nv">program_NAME</span><span class="k">)</span>
+
+<span class="nf">$(program_NAME)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">program_OBJS</span><span class="k">)</span>
+    <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> -o <span class="k">$(</span>program_NAME<span class="k">)</span> <span class="k">$(</span>program_OBJS<span class="k">)</span>
+    cp greet.o ../lib
+
+<span class="nf">clean</span><span class="o">:</span>
+    <span class="k">$(</span>RM<span class="k">)</span> <span class="k">$(</span>program_NAME<span class="k">)</span> <span class="k">$(</span>program_OBJS<span class="k">)</span></code></pre></div>
+
+<p>I wrote a simple failing test with no implementation:</p>
+
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;check.h&gt;</span>
+<span class="cp">#include &lt;greet.h&gt;</span>
+
+<span class="n">START_TEST</span> <span class="p">(</span><span class="n">check_correct_greeting_is_returned</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">fail</span><span class="p">(</span><span class="s">&quot;test not implemented&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">END_TEST</span></code></pre></div>
+
+<p>and then, a more complicated test runner. There&#39;s no requirement to
+separate the test runner out from the test suites, but I prefer it.</p>
+
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;check.h&gt;</span>
+<span class="cp">#include &quot;check_main.c&quot;</span>
+
+<span class="n">Suite</span> <span class="o">*</span>
+<span class="nf">request_suite</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Suite</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="n">suite_create</span><span class="p">(</span><span class="s">&quot;request&quot;</span><span class="p">);</span>
+
+    <span class="n">TCase</span> <span class="o">*</span><span class="n">tc_core</span> <span class="o">=</span> <span class="n">tcase_create</span><span class="p">(</span><span class="s">&quot;Core&quot;</span><span class="p">);</span>
+    <span class="n">tcase_add_test</span><span class="p">(</span><span class="n">tc_core</span><span class="p">,</span> <span class="n">check_correct_greeting_is_returned</span><span class="p">);</span>
+    <span class="n">suite_add_tcase</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">tc_core</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">number_failed</span><span class="p">;</span>
+    <span class="n">Suite</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="n">request_suite</span><span class="p">();</span>
+    <span class="n">SRunner</span> <span class="o">*</span><span class="n">sr</span> <span class="o">=</span> <span class="n">srunner_create</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="n">srunner_run_all</span><span class="p">(</span><span class="n">sr</span><span class="p">,</span> <span class="n">CK_NORMAL</span><span class="p">);</span>
+    <span class="n">number_failed</span> <span class="o">=</span> <span class="n">srunner_ntests_failed</span><span class="p">(</span><span class="n">sr</span><span class="p">);</span>
+    <span class="n">srunner_free</span><span class="p">(</span><span class="n">sr</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">number_failed</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p>I based <code>test_runner.c</code> on some example code I found in the Check
+documentation which you can see <a href="http://check.sourceforge.net/doc/check_html/check_3.html#SEC8">here</a>.</p>
+
+<p>The test <code>Makefile</code> looks like this:</p>
+
+<div class="highlight"><pre><code class="language-make" data-lang="make"><span class="nv">check_NAME</span> <span class="o">:=</span> test_runner
+<span class="nv">check_SRCS</span> <span class="o">:=</span> <span class="k">$(</span>wildcard *.c<span class="k">)</span>
+<span class="nv">check_OBJS</span> <span class="o">:=</span> <span class="k">${</span><span class="nv">check_SRCS</span><span class="p">:.c=.o</span><span class="k">}</span>
+<span class="nv">check_LIBS</span> <span class="o">:=</span> -lcheck
+
+<span class="nv">program_OBJS</span> <span class="o">:=</span> <span class="k">$(</span>wildcard ../lib/*.o<span class="k">)</span>
+
+<span class="nv">CFLAGS</span> <span class="o">+=</span> -L/usr/local/lib -I/usr/local/include -I../include
+
+<span class="nf">.PHONY</span><span class="o">:</span> <span class="n">all</span> <span class="n">clean</span> <span class="n">check</span>
+
+<span class="nf">all</span><span class="o">:</span> <span class="k">$(</span><span class="nv">check_NAME</span><span class="k">)</span>
+
+<span class="nf">$(check_NAME)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">check_OBJS</span><span class="k">)</span>
+    <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> -o <span class="k">$(</span>check_NAME<span class="k">)</span> <span class="k">$(</span>check_OBJS<span class="k">)</span> <span class="k">$(</span>program_OBJS<span class="k">)</span> <span class="k">$(</span>check_LIBS<span class="k">)</span>
+
+<span class="nf">check</span><span class="o">:</span> <span class="n">all</span>
+    ./test_runner
+
+<span class="nf">clean</span><span class="o">:</span>
+    <span class="k">$(</span>RM<span class="k">)</span> <span class="k">$(</span>check_NAME<span class="k">)</span> <span class="k">$(</span>check_OBJS<span class="k">)</span></code></pre></div>
+
+<p>Now I can run <code>make check</code> to see the unit test working, i.e. failing.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">vagrant@precise64:~/Development/project$ make check
+make -C test check
+make[1]: Entering directory `/home/vagrant/Development/project/test&#39;
+cc -L/usr/local/lib -I/usr/local/include -I../include   -c -o check_main.o check_main.c
+cc -L/usr/local/lib -I/usr/local/include -I../include   -c -o test_runner.o test_runner.c
+cc -L/usr/local/lib -I/usr/local/include -I../include -o test_runner check_main.o test_runner.o ../lib/greet.o -lcheck
+./test_runner
+Running suite(s): request
+0%: Checks: 1, Failures: 1, Errors: 0
+check_main.c:7:F:Core:check_correct_greeting_is_returned:0: test not implemented
+make[1]: *** [check] Error 1
+make[1]: Leaving directory `/home/vagrant/Development/project/test&#39;
+make: *** [check] Error 2
+</code></pre></div>
+<h3>Code some code</h3>
+
+<p>Finally, I did some of that programming stuff to make the program do what
+I expect, which is to greet me with <em><a href="http://www.highhatstudios.com/imgs_ext/lolrats/macros/ohai.jpg">&quot;ohai Tom! xxx&quot;</a></em>.</p>
+
+<div class="highlight"><pre><code class="language-diff" data-lang="diff">#include &lt;check.h&gt;
+<span class="gi">+#include &lt;string.h&gt;</span>
+#include &lt;greet.h&gt;
+
+START_TEST (check_correct_greeting_is_returned)
+{
+<span class="gd">-       fail(&quot;test not implemented&quot;);</span>
+<span class="gi">+       fail_unless(0 == strncmp(&quot;ohai Tom! xxx&quot;, greet(&quot;Tom&quot;), (size_t) 255));</span>
+}
+END_TEST</code></pre></div>
+
+<p>Now my test fails with an assertion error:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">vagrant@precise64:~/Development/project$ make check
+make -C test check
+make[1]: Entering directory `/home/vagrant/Development/project/test&#39;
+./test_runner
+Running suite(s): request
+0%: Checks: 1, Failures: 1, Errors: 0
+check_main.c:8:F:Core:check_correct_greeting_is_returned:0: Assertion &#39;0 == strncmp(&quot;ohai Tom! xxx&quot;, greet(&quot;Tom&quot;), (size_t) 255)&#39; failed
+make[1]: *** [check] Error 1
+make[1]: Leaving directory `/home/vagrant/Development/project/test&#39;
+make: *** [check] Error 2
+</code></pre></div>
+<p>Because <a href="http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd">TDD</a>
+is all about writing the simplest code to pass the test, my
+implementation is as follows:</p>
+
+<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span class="gd">--- a/src/greet.c</span>
+<span class="gi">+++ b/src/greet.c</span>
+<span class="gu">@@ -1,5 +1,5 @@</span>
+const char*
+greet(const char *name)
+{
+<span class="gd">-       return &quot;&quot;;</span>
+<span class="gi">+       return &quot;ohai Tom! xxx&quot;;</span>
+}</code></pre></div>
+
+<p><em>Merci beaucoup, et bonne nuit</em>.</p>
+
+<p>You can download the simple project <a href="downloads/code/simple-check-project.tar.gz">here</a>,
+or check out my pet project, <a href="https://github.com/TomRegan/pushy">pushy, on github</a>
+for a more realistic example.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/pages/all/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                	  <!-- Author Name -->
+                    	  <h4> Tom Regan </h4>
+                    	  <!-- Author Bio -->
+                    	  <p> 
+                    	    I write things for computers, also people.
+                    	  </p>
+			  <p>
+			    <i class="fa fa-github-alt"></i>
+			    <a href="http://github.com/TomRegan">GitHub</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-comment"></i>
+			    <a href="http://twitter.com/TomRegan">@TomRegan</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-key"></i>
+			    <a href="http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x53D17134DC8B2BFF">
+			    DC8B2BFF
+			    </a>
+			  </p>
+			</article>
+                </section>                
+            
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <!-- This page is licensed under a FUCK ALL OF YOUR STUPID LEGAL SHIT
+             LICENSE V1.0. I am happy for you to share anything I post here as
+             long as you have a clear conscience; this includes but need not
+             be limited to: copies in part or in whole, derivative works,
+             commercial works, commercially unsuccessful works, blasphemous
+             works (strongly encouraged), any edition of Microsoft Works, etc.
+             I do not expect any form of attribution. It is not my intention 
+             to limit your actions with respect to sharing my work in any way.
+        -->
+        <div class="inner">
+            <a href="http://www.kopimi.com/kopimi">
+                <img class="kopimi" src="/assets/images/pages/foot/kopimi.png">
+            </a>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

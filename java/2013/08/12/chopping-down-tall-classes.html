@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>things i am currently doing re: computers - </title>
+    <meta name="description" content="things i am currently doing re: computers" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="">
+                
+                    <img src="/assets/images/pages/all/profile.png" alt="things i am currently doing re: computers" />
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2013-08-12">12 Aug 2013</time>
+	</span>
+
+        <h1 class="post-title">Chopping Down Tall Classes</h1>
+
+	<span class="post-meta">
+	
+		posted in
+		
+		    java
+		
+	
+	</span>
+
+        <section class="post-content">
+            <p>I&#39;ve been having bags of fun today trying to get to grips with an
+enormously busy class. The carbuncle of code is basically a
+data structure that contains a tree of values loaded from a
+plain-text configuration file. To keep it from being too simple and
+boring, somebody decided you should be able to pass it an instance
+of our application, and have it call lots of configuration methods
+on it for you.</p>
+
+<p><img src="http://www.tumblr.com/photo/1280/explodingdog/1359175167/1/tumblr_lalh5m7hw51qzs63f"/ style="width: 50%"/></p>
+
+<p>What I actually want it to do is to expose a public API, so we can
+let our customers, you know, use it to configure their application. The
+quickest way I reckon on doing this is through <a href="https://en.wikipedia.org/wiki/Interface_segregation_principle">interface segregation</a>.</p>
+
+<p><img src="http://www.explodingdog.com/drawing/myrobotgarden.gif" style="width: 50%" /></p>
+
+<p>My public interface is a small bunch of accessors that return
+the parsed configuration values. The existing class is extended
+to implement my interface, so I can return an instance of it
+without users having to understand all of its quirky behaviour.</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserFriendlyConfiguration</span> <span class="o">{</span>
+    <span class="cm">/**</span>
+<span class="cm">     * That thing you&#39;re so interested in. This is that thing.</span>
+<span class="cm">     * @param option  That option you want.</span>
+<span class="cm">     * @return That thing you&#39;re interested in.</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getInterestingValue</span><span class="o">(</span><span class="n">String</span> <span class="n">option</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BigConfigurationClass</span> <span class="kd">implements</span> <span class="n">UserFriendlyConfiguration</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">StuffBag</span><span class="o">&lt;</span><span class="n">Stuff</span><span class="o">&gt;</span> <span class="n">stuff</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">configureAllTheThings</span><span class="o">(</span><span class="n">DistantRelation</span> <span class="n">ohaiNotExpectinYou</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// good luck decoupling this</span>
+    <span class="o">}</span>
+
+    <span class="c1">// lines and lines and lines</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getInterestingValue</span><span class="o">(</span><span class="n">String</span> <span class="n">option</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">stuff</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">option</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">BigConfigurationClass</span> <span class="n">configuration</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">UserFriendlyConfiguration</span> <span class="nf">getConfiguration</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">configuration</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p><em>And yes, my documentation</em> really <em>is that good.</em></p>
+
+<p>I gave some thought to creating a wrapper class to achieve more or less the
+same thing, but I like the minimalism of the interface approach. It&#39;s
+pretty compelling because it&#39;s about the least complex way of changing
+the code while still meeting our goals, and it means I can spend more time
+chopping the über class down into single responsibility objects, for
+which I&#39;m sure someone will someday thank me.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/pages/all/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                	  <!-- Author Name -->
+                    	  <h4> Tom Regan </h4>
+                    	  <!-- Author Bio -->
+                    	  <p> 
+                    	    I write things for computers, also people.
+                    	  </p>
+			  <p>
+			    <i class="fa fa-github-alt"></i>
+			    <a href="http://github.com/TomRegan">GitHub</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-comment"></i>
+			    <a href="http://twitter.com/TomRegan">@TomRegan</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-key"></i>
+			    <a href="http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x53D17134DC8B2BFF">
+			    DC8B2BFF
+			    </a>
+			  </p>
+			</article>
+                </section>                
+            
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <!-- This page is licensed under a FUCK ALL OF YOUR STUPID LEGAL SHIT
+             LICENSE V1.0. I am happy for you to share anything I post here as
+             long as you have a clear conscience; this includes but need not
+             be limited to: copies in part or in whole, derivative works,
+             commercial works, commercially unsuccessful works, blasphemous
+             works (strongly encouraged), any edition of Microsoft Works, etc.
+             I do not expect any form of attribution. It is not my intention 
+             to limit your actions with respect to sharing my work in any way.
+        -->
+        <div class="inner">
+            <a href="http://www.kopimi.com/kopimi">
+                <img class="kopimi" src="/assets/images/pages/foot/kopimi.png">
+            </a>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

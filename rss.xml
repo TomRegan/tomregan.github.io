@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+  <channel>
+    <title>things i am currently doing re: computers</title>
+    <link>http://tomregan.github.io</link>
+    <description>RSS feed for things i am currently doing re: computers</description>
+    <pubDate>Sat, 24 May 2014 00:00:00 +0100</pubDate>
+    <item>
+      <title>Making Pull Requests</title>
+      <link>http://tomregan.github.io/opensource/2014/05/24/making-pull-requests.html</link>
+      <description>&lt;p&gt;&lt;img src=&quot;https://octodex.github.com/images/nyantocat.gif&quot; style=&quot;width: 250px&quot;/&gt;&lt;/p&gt;
+</description>
+      <pubDate>Sat, 24 May 2014 00:00:00 +0100</pubDate>
+      <dc:date>2014-05-24T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Loading A Dtd From A Jar</title>
+      <link>http://tomregan.github.io/java/2013/12/02/Loading-a-DTD-from-a-jar.html</link>
+      <description>&lt;p&gt;Bundling resources into a jar file is a common way to deploy your Java
+application, useful because it makes the jar&amp;#39;s resources available to
+retrieve via the classloader at runtime.&lt;/p&gt;
+</description>
+      <pubDate>Mon, 02 Dec 2013 00:00:00 +0000</pubDate>
+      <dc:date>2013-12-02T00:00:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Writing Libraries In Bash</title>
+      <link>http://tomregan.github.io/bash/2013/11/19/writing-libraries-in-bash.html</link>
+      <description>&lt;!--
+![BY-NC-SA shells by Cody Geary](https://farm1.staticflickr.com/119/308384875_5232c39c9a_n.jpg)
+--&gt;
+</description>
+      <pubDate>Tue, 19 Nov 2013 00:00:00 +0000</pubDate>
+      <dc:date>2013-11-19T00:00:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Getting Ocmock To Play Nicely With Xcode 5</title>
+      <link>http://tomregan.github.io/objectivec/2013/11/17/Getting-OCMock-to-play-nicely-with-XCode-5.html</link>
+      <description>&lt;p&gt;I&amp;#39;ve started writing a dashboard Cocoa app, and I&amp;#39;ve found the process of
+setting up OCMock really unreasonably painful.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 17 Nov 2013 00:00:00 +0000</pubDate>
+      <dc:date>2013-11-17T00:00:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Switching Text Editors</title>
+      <link>http://tomregan.github.io/lisp/2013/09/08/switching-text-editors.html</link>
+      <description>&lt;p&gt;After 7 years, I&amp;#39;m finally doing the dirty dead: jumping off the
+Vim ship, into the [&lt;em&gt;adjective&lt;/em&gt;], [&lt;em&gt;adjective&lt;/em&gt;] something [&lt;em&gt;noun&lt;/em&gt;]
+that is emacs. There follows a brief description of the process so far.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 08 Sep 2013 00:00:00 +0100</pubDate>
+      <dc:date>2013-09-08T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Using Mockito As A Crutch</title>
+      <link>http://tomregan.github.io/java/2013/08/28/using-mockito-as-a-crutch.html</link>
+      <description>&lt;p&gt;&lt;em&gt;&amp;quot;omne trium perfectum&amp;quot;&lt;/em&gt;, as the Latins used to say: a set of three is perfect. Sadly I don&amp;#39;t have three facts I know about &lt;a href=&quot;http://code.google.com/p/mockito/&quot;&gt;mockito&lt;/a&gt;,
+but I do have two facts. That&amp;#39;s not enough to impress anyone, which means
+almost by definition, it&amp;#39;s enough for a blog.&lt;/p&gt;
+</description>
+      <pubDate>Wed, 28 Aug 2013 00:00:00 +0100</pubDate>
+      <dc:date>2013-08-28T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Hanging Out With Linked Hash Map</title>
+      <link>http://tomregan.github.io/java/2013/08/18/hanging-out-with-linked-hash-map.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://docs.oracle.com/javase/6/docs/api/java/util/LinkedHashMap.html&quot;&gt;&lt;code&gt;LinkedHashMap&lt;/code&gt;&lt;/a&gt;
+is a surprising useful data structure, and missing from many standard
+libraries.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 18 Aug 2013 00:00:00 +0100</pubDate>
+      <dc:date>2013-08-18T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Chopping Down Tall Classes</title>
+      <link>http://tomregan.github.io/java/2013/08/12/chopping-down-tall-classes.html</link>
+      <description>&lt;p&gt;I&amp;#39;ve been having bags of fun today trying to get to grips with an
+enormously busy class. The carbuncle of code is basically a
+data structure that contains a tree of values loaded from a
+plain-text configuration file. To keep it from being too simple and
+boring, somebody decided you should be able to pass it an instance
+of our application, and have it call lots of configuration methods
+on it for you.&lt;/p&gt;
+</description>
+      <pubDate>Mon, 12 Aug 2013 00:00:00 +0100</pubDate>
+      <dc:date>2013-08-12T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Pressing Buttons In Bash</title>
+      <link>http://tomregan.github.io/bash/2013/05/12/pressing-buttons-in-bash.html</link>
+      <description>&lt;p&gt;Shortcuts are a source of constant amusement as far as I&amp;#39;m concerned, and
+nothing on Earth makes me more ecstatically happy than accidentally
+discovering a new one. Today&amp;#39;s mis-fingering was &lt;code&gt;^t&lt;/code&gt; in bash, which
+roughly translated means &lt;em&gt;transpose the character under the cursor and
+the previous character&lt;/em&gt;.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 12 May 2013 00:00:00 +0100</pubDate>
+      <dc:date>2013-05-12T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Writing A Simple Gradle Build</title>
+      <link>http://tomregan.github.io/bash/2013/05/05/writing-a-simple-gradle-build.html</link>
+      <description>&lt;p&gt;&amp;#39;Build as code&amp;#39; is one of those dreadful smells you start to recognise after
+a while, so gradle, which is a highly free-form system, is not my first choice
+for complex builds, but it is a beautiful way to build a simple set of modules.
+I&amp;#39;ve written something along the lines of the following build enough times for
+me to make a note of it for future copy-pasting, so here it is.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 05 May 2013 00:00:00 +0100</pubDate>
+      <dc:date>2013-05-05T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Deleting Files From Git Object Store</title>
+      <link>http://tomregan.github.io/git/2013/04/17/deleting-files-from-git-object-store.html</link>
+      <description>&lt;p&gt;Tonight I accidentally did something stupid and committed binaries to
+my git repository, despite knowing better in the first place. After
+the commit I tried to push.&lt;/p&gt;
+</description>
+      <pubDate>Wed, 17 Apr 2013 00:00:00 +0100</pubDate>
+      <dc:date>2013-04-17T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Defusing Xml</title>
+      <link>http://tomregan.github.io/xml/2013/04/15/defusing-xml.html</link>
+      <description>&lt;p&gt;&lt;img src=&quot;https://gs1.wac.edgecastcdn.net/8019B6/data.tumblr.com/tumblr_m8uhnbZZoM1rzupqxo1_500.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+</description>
+      <pubDate>Mon, 15 Apr 2013 00:00:00 +0100</pubDate>
+      <dc:date>2013-04-15T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Blogging With Pelican</title>
+      <link>http://tomregan.github.io/python/2013/04/13/blogging-with-pelican.html</link>
+      <description>&lt;p&gt;&lt;img src=&quot;http://farm2.staticflickr.com/1335/1349088634_9689c2fe93_n.jpg&quot; alt=&quot;&quot; title=&quot;image By Jim Bahn on Flickr&quot;&gt;&lt;/p&gt;
+</description>
+      <pubDate>Sat, 13 Apr 2013 00:00:00 +0100</pubDate>
+      <dc:date>2013-04-13T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Bringing Eclipse Shortcuts To Xcode</title>
+      <link>http://tomregan.github.io/macnuggets/2013/01/12/bringing-eclipse-shortcuts-to-xcode.html</link>
+      <description>&lt;p&gt;When I first arrived in the real world, I was introduced to new things;
+amongst these were &amp;#39;collaboration&amp;#39; and &amp;#39;gigantic code bases&amp;#39;. I 
+grudgingly accepted the need for an IDE, and started to use Eclipse. There
+are actions I use in Eclipse regularly that I find really useful, like
+searching and manipulating text.&lt;/p&gt;
+</description>
+      <pubDate>Sat, 12 Jan 2013 00:00:00 +0000</pubDate>
+      <dc:date>2013-01-12T00:00:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Disable Cache In Chrome And Other Goodies</title>
+      <link>http://tomregan.github.io/macnuggets/2013/01/06/disable-cache-in-chrome-and-other-goodies.html</link>
+      <description>&lt;p&gt;Through some lucky keyboard-mashing I stumbled across a couple of
+useful developer features in Google Chrome, including an option to
+disable the cache, and settings for device testing. Here&amp;#39;s how to:&lt;/p&gt;
+</description>
+      <pubDate>Sun, 06 Jan 2013 00:00:00 +0000</pubDate>
+      <dc:date>2013-01-06T00:00:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Code Shame</title>
+      <link>http://tomregan.github.io/c/2013/01/03/code-shame.html</link>
+      <description>&lt;p&gt;Naturally when I write C I&amp;#39;m reasonably careful about a number of things.
+Because at runtime it&amp;#39;s a free-for-all, I take care to notice buffer
+overruns, uninitialized memory, and in particular the possible values
+assigned to a pointer.&lt;/p&gt;
+</description>
+      <pubDate>Thu, 03 Jan 2013 00:00:00 +0000</pubDate>
+      <dc:date>2013-01-03T00:00:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Lazy Instantiation In Objective C</title>
+      <link>http://tomregan.github.io/objectivec/2012/12/09/lazy-instantiation-in-objective-c.html</link>
+      <description>&lt;p&gt;Lazy instantiation is a relatively cheap way of allocating memory to
+component objects as it&amp;#39;s required instead of up-front in a constructor.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 09 Dec 2012 00:00:00 +0000</pubDate>
+      <dc:date>2012-12-09T00:00:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Deploying An Xml File With Maven</title>
+      <link>http://tomregan.github.io/maven/2012/11/06/deploying-an-xml-file-with-maven.html</link>
+      <description>&lt;p&gt;Something clever we&amp;#39;ve started doing at work is publishing common build
+files to our local maven repository, so builds can depend on known versions
+of scripts, rather than just the latest from source control.&lt;/p&gt;
+</description>
+      <pubDate>Tue, 06 Nov 2012 00:00:00 +0000</pubDate>
+      <dc:date>2012-11-06T00:00:00+00:00</dc:date>
+    </item>
+    <item>
+      <title>Fixing A Permissions Error Opening A Semaphore</title>
+      <link>http://tomregan.github.io/c/2012/10/06/fixing-a-permissions-error-opening-a-semaphore.html</link>
+      <description>&lt;p&gt;Today I spent a couple of hours getting semaphores to work.&lt;/p&gt;
+</description>
+      <pubDate>Sat, 06 Oct 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-10-06T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Reading From Sockets</title>
+      <link>http://tomregan.github.io/c/2012/09/22/reading-from-sockets.html</link>
+      <description>&lt;p&gt;This is a story about how I learned to read streams from sockets, or
+to put it another way:&lt;/p&gt;
+</description>
+      <pubDate>Sat, 22 Sep 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-09-22T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Saving The Workspace From An Eclipse Plugin</title>
+      <link>http://tomregan.github.io/java/2012/09/17/saving-the-workspace-from-an-eclipse-plugin.html</link>
+      <description>&lt;p&gt;Since I&amp;#39;m going to the trouble of making a plugin for Eclipse,
+I thought I may as well try and make if look and feel a bit
+Eclipsy, so when it came to writing an export feature to bundle the
+user&amp;#39;s project, I decided it would be a jolly good thing if the user
+got a dialog to prompt them to save their changes, much as when you run
+an application in Eclipse.&lt;/p&gt;
+</description>
+      <pubDate>Mon, 17 Sep 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-09-17T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Fixing Git Upload Pack Not Found</title>
+      <link>http://tomregan.github.io/git/2012/09/08/fixing-git-upload-pack-not-found.html</link>
+      <description>&lt;p&gt;I&amp;#39;ve only just realised that blogging about problems is a great way of
+delaying doing the thing I intended to get done in the first place.&lt;/p&gt;
+</description>
+      <pubDate>Sat, 08 Sep 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-09-08T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Monitor A Long Running Process With Control T</title>
+      <link>http://tomregan.github.io/macnuggets/2012/09/07/monitor-a-long-running-process-with-control-t.html</link>
+      <description>&lt;p&gt;One of the nice things about being in Linux exile is learning about
+new things that I hadn&amp;#39;t noticed were missing from my life, like
+being able to tell if a process has hung, or it&amp;#39;s just taking a
+really long time.&lt;/p&gt;
+</description>
+      <pubDate>Fri, 07 Sep 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-09-07T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Building An Eclipse Plugin With Tycho</title>
+      <link>http://tomregan.github.io/java/2012/09/02/building-an-eclipse-plugin-with-tycho.html</link>
+      <description>&lt;p&gt;I spent a couple of days this week converting the build of an Eclipse
+plugin project from Ant with Ivy to Maven using the Tycho plugins.
+I&amp;#39;ll demonstrate the build with an example project.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 02 Sep 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-09-02T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Unit Testing In C With Check Setting Up A Project</title>
+      <link>http://tomregan.github.io/c/2012/08/27/unit-testing-in-c-with-check-setting-up-a-project.html</link>
+      <description>&lt;p&gt;In a &lt;a href=&quot;blog/2012/08/12/unit-testing-in-c-with-check&quot;&gt;previous post&lt;/a&gt;
+I went through the steps to run the
+&lt;a href=&quot;http://check.sourceforge.net/&quot;&gt;Check&lt;/a&gt;
+tutorial, had a bit of a whinge about how difficult
+is had all been, and mumbled a bit about coming back when I&amp;#39;d figured
+out how to make everything work on a real project. In fact, that
+was much simpler than I expected.&lt;/p&gt;
+</description>
+      <pubDate>Mon, 27 Aug 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-08-27T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>To Sudo Or Not To Sudo</title>
+      <link>http://tomregan.github.io/bash/2012/08/25/to-sudo-or-not-to-sudo.html</link>
+      <description>&lt;p&gt;This is a pretty neat trick I&amp;#39;ve just seen in a tutorial from the
+chaps at &lt;a href=&quot;http://wiki.opscode.com/&quot;&gt;opscode&lt;/a&gt;.&lt;/p&gt;
+</description>
+      <pubDate>Sat, 25 Aug 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-08-25T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Unit Testing In C With Check</title>
+      <link>http://tomregan.github.io/c/2012/08/12/unit-testing-in-c-with-check.html</link>
+      <description>&lt;h3&gt;Pushy&lt;/h3&gt;
+
+&lt;p&gt;I&amp;#39;ve been developing a cheerfully indolent little HTTP server for some
+time now, as one of those &amp;#39;learn-more-c&amp;#39;, &amp;#39;learn-TDD&amp;#39; projects that
+I imagine nearly everyone has lying around, half neglected.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 12 Aug 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-08-12T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Unpacking Maven Dependencies</title>
+      <link>http://tomregan.github.io/maven/2012/08/07/unpacking-maven-dependencies.html</link>
+      <description>&lt;h3&gt;Unpacking a kit for inclusion in a Java library&lt;/h3&gt;
+</description>
+      <pubDate>Tue, 07 Aug 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-08-07T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Using Jvm Shutdown Hooks To Kill A Child Process</title>
+      <link>http://tomregan.github.io/java/2012/08/06/using-jvm-shutdown-hooks-to-kill-a-child-process.html</link>
+      <description>&lt;p&gt;Today I spent some time writing a runner for a command-line Java socket 
+application. I&amp;#39;d assumed that it would be easy enough to quit the process 
+by hitting &lt;code&gt;^C&lt;/code&gt;. I&amp;#39;m here to report that this is not the case.&lt;/p&gt;
+</description>
+      <pubDate>Mon, 06 Aug 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-08-06T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Disabling The Next Button In An Eclipse Wizard</title>
+      <link>http://tomregan.github.io/java/2012/08/04/disabling-the-next-button-in-an-eclipse-wizard.html</link>
+      <description>&lt;p&gt;I&amp;#39;ve been writing an Eclipse wizard that will be used to create new 
+socket applications. The options selected in early in the wizard
+determine whether it&amp;#39;s appropriate for the user to configure connection
+properties before creating the project.&lt;/p&gt;
+</description>
+      <pubDate>Sat, 04 Aug 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-08-04T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Modular Projects With Bash</title>
+      <link>http://tomregan.github.io/bash/2012/07/19/modular-projects-with-bash.html</link>
+      <description>&lt;p&gt;I try to use bash scripts wherever I can over ruby or python. Partly
+that&amp;#39;s down to stubbornness, but it&amp;#39;s mostly because the problems I&amp;#39;m
+trying to solve can be tackled with the tools already available
+in UNIX.&lt;/p&gt;
+</description>
+      <pubDate>Thu, 19 Jul 2012 00:00:00 +0100</pubDate>
+      <dc:date>2012-07-19T00:00:00+01:00</dc:date>
+    </item>
+    <dc:date>2014-05-24T00:00:00+01:00</dc:date>
+  </channel>
+</rss>

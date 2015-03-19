@@ -1,0 +1,82 @@
+==================================================================
+https://keybase.io/tomregan
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://tomregan.github.io
+    * I am tomregan (https://keybase.io/tomregan) on keybase.
+      * I have a public key with fingerprint 780E 9EE7 C923 9B63 A7FF  9BA2 53D1 7134 DC8B 2BFF
+
+To do so, I am signing this object:
+
+{
+	 "body": {
+	     "client": {
+		 "name": "keybase.io node.js client",
+		 "version": "0.7.7"
+	     },
+	     "key": {
+		 "fingerprint": "780e9ee7c9239b63a7ff9ba253d17134dc8b2bff",
+		 "host": "keybase.io",
+		 "key_id": "53D17134DC8B2BFF",
+		 "uid": "c581c01e8591c01e55daf3d2aed65219",
+		 "username": "tomregan"
+	     },
+	     "merkle_root": {
+		 "ctime": 1426776426,
+		 "hash": "a6c6423f9f8380f030e1e287e46c9dab2e98ead0ef98d2a16c303311f8ce8c173cd8e5205e5a3c1a7151bf3a50c47e8d483067dd5036248a146ba2bebd50672a",
+		 "seqno": 179507
+	     },
+	     "service": {
+		 "hostname": "tomregan.github.io",
+		 "protocol": "http:"
+	     },
+	     "type": "web_service_binding",
+	     "version": 1
+	 },
+	 "ctime": 1426776534,
+	 "expire_in": 157680000,
+	 "prev": "8c8f4e241b9e6acc13c2303138b3393995e0f363e8df1b14059c2f68c26198a7",
+	 "seqno": 5,
+	 "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+owFdUn1QFVUcfb7Mr0ysUTCEwC0UFB979+7H3WeEIepIiIkgFZPP3bt3Hwu8t/C+
+EAUJdWpMJcxkbMxBBjXHKAeVxkYzxY/J0jTLQNQBnMgYUwYxnhgj7ZJN2f1j7977
+O/f8zjn3Vj39hMU6bMkPRey1DTMGh33XJVuyxnRcW0XJulJC2VdRuEAjbp/555Zc
+hLJT+aRElrzEpunRbl0htjxv9CNMPBUgHq+muw0UbRNsAlUWb8LNw6rmdhJPoUcz
+uSgB0UQkRMAiA0WZh5KgqqIsMRxUgAAgq2AkM7KqGpS5utf3WFdqiNOhKcYuB1OG
+8ClzUDKTPG+eUfMPFTCHAKYBQZw4NHOcIqlQYSSi8BwDRBPoJZ5Hlny6y0OcktvU
+6yKe/ALi8Oj6kGns00wIYBleEHjjayiSvLnGIYnHxhqqooogolUa0gQQBgmE5bGo
+SDJDREQkhSaqiIzGgMeQhhAAFWGCMBAgVhDhGJojnAQxkATAAVmFEkdjViBIYRGk
+eUFROBryDIskwPJGQjKRjR1eYCTDgpcUuXVDnCBytFBmrj0BDRNTtxnb/9zZnJov
+1y//HWGhR/fpWC8w6rk+X6HdtO4rKSTUQTtVTGTHIyqHrLkV4+r+e7fAgD4eCwfZ
+eIqsKNQ8xKGZCE7gEW0Msw8JGD0QRipLGBbIIuEljAHEjBEHgEiGUISiyBFahTw0
+fKtABizNiZhReYQZHohIEv41yxk6JadB6dWcbsnn9xCqbL01YrhlmNUy4kmr+Xgt
+Y0aP/+dFJ9jGWz47OTLvtYo74W9uoM9NHbM8bGCgIYE711J8etz0vpiLL7UGskPs
+SWHPL5sA+vYfO5v57p2ytlfv5IfH5PXXfhOYW99+dO0M8fOZ23DOmp6Mvpy5lRtP
+dacUhVyuyYi9tQinTjrSkBob1fnne1Fgtnfng4Qo7vj2urcLws40xy35orx3V1p1
+KRcavm+LunByy8qD7szIjvIFRYddDw8xsZVt6yr23vwkKrlpzenQii9b5zQMuu5P
+nTIyffXh7IiQpurhy3Lsk5oaOoaPLY5b31uf/u28842uC5G708+izs6PbaHhWz5N
+HEzle8b2fhS157f8V0qnBB1NtZeqZOsxS9rFVv/FldFhx+sjFkWduFF3oeJ01e+V
+CefuvbA19WZWZXhcbU3z1qWbFm3fkJNfat272V935cDtF68mxb/fk7ZRBU+NLN20
+ePOpsJ4dd+fHpQfjjt2afiTkl+J9C+v2FEeu8MRUJwcHEqszng22Jo068GHmpdCk
+n+5W1NMjor9vmV/zMGLnrNEndw0sINFvNPYsT3VG5LQ3tmXemHj0+vTmQC+5ap+4
+NVk8dP4P66/ty6sXV329O3BiMOXHtOC4/oeXJ2/fEXol5uXnYtumZQSbx629UCZ2
+3ts/rTayP6tm28/+xO5lz5Qz15e+1UQfKN+B7s9qe5B9/faELf4zXatBw64TM7v1
+GVlfdaFNaz+ov/T6usjNo975Cw==
+=3sOJ
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/tomregan
+
+==================================================================

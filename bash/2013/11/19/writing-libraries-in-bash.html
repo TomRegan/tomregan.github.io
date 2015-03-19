@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>things i am currently doing re: computers - </title>
+    <meta name="description" content="things i am currently doing re: computers" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="">
+                
+                    <img src="/assets/images/pages/all/profile.png" alt="things i am currently doing re: computers" />
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2013-11-19">19 Nov 2013</time>
+	</span>
+
+        <h1 class="post-title">Writing Libraries In Bash</h1>
+
+	<span class="post-meta">
+	
+		posted in
+		
+		    bash
+		
+	
+	</span>
+
+        <section class="post-content">
+            <!--
+![BY-NC-SA shells by Cody Geary](https://farm1.staticflickr.com/119/308384875_5232c39c9a_n.jpg)
+-->
+
+<p>If you&#39;re a Python programmer, chances are you&#39;re familiar with the idiom:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span></code></pre></div>
+
+<p>This lets you put behaviour in a file that will only be executed if it&#39;s run
+from the command line, not when it&#39;s included in a program.</p>
+
+<p>So it&#39;s possible to achieve the same thing in bash, simply using:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[[</span> <span class="nv">$0</span> !<span class="o">=</span> -<span class="k">${</span><span class="nv">SHELL</span><span class="p">##*/</span><span class="k">}</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> main</code></pre></div>
+
+<p>Could that be clearer? Probably. Here&#39;s what it means from left to right:</p>
+
+<ul>
+<li><code>[[</code> are extended conditional tests. Useful if you want to use non-posix
+operators
+such as the regex matcher (<code>=~</code>), but in this case the posix conditional
+<code>[</code> is directly substitutable.</li>
+<li><code>$0</code> is the zeroth command line argument. In case you&#39;ve just called
+<code>./script.bash</code> It&#39;s going to be, you guessed it, <code>script.bash</code>. When we
+source the same file(<code>source script.bash</code>) the zeroth argument contains an
+interesting value which will be revealed in a moment.</li>
+<li><code>!=</code> Not equal, right?</li>
+<li><code>-${SHELL##*/}</code> So that <em>interesting value</em> I mentioned when a script is
+sourced is the
+name of the shell preceded by a hyphen. If you&#39;re running a bash shell, that
+will be the value <code>-bash</code>. the <code>$SHELL</code> environment variable contains the
+path of the current shell, for example <code>/bin/bash</code>. The matcher <code>##*/</code> removes
+the longest string (<code>##</code>) of any characters (<code>*</code>) up to a <code>/</code> from the variable
+<code>SHELL</code>. In effect this is doing the same thing as <code>basename</code>, but without
+spawning a subshell.</li>
+<li><code>&amp;&amp; main</code> is just shorthand for <code>if [ true ]; then main; fi</code>, and it means
+the main function will be called if the condition is true.</li>
+</ul>
+
+<p>If you try this on the command line, you&#39;ll see that executing the script
+directly evaluates the body of main, while sourcing does not.</p>
+
+<p>This opens up the possibility to write shared code in executable scripts,
+and to separate unit tests out from the runnable code. My goal is to write
+clean, extensible, modular bash.</p>
+
+<h3>Caveats</h3>
+
+<ul>
+<li>I haven&#39;t tested this with many non-bash shells. If you&#39;re the kind of
+devient who uses zsh, korn, or an even less savoury offering, this may not
+work for you.</li>
+<li>I have used this successfully running bash 3, 4 and on busybox using the
+ash shell.</li>
+<li>I have a hazy understanding of <code>source</code> so I can imagine a few failure cases
+in multi-shell environments where the primary shell is not bash. If anyone can
+suggest a better solution, do contact me.</li>
+</ul>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href=""> <img class="profile" src="/assets/images/pages/all/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                	  <!-- Author Name -->
+                    	  <h4> Tom Regan </h4>
+                    	  <!-- Author Bio -->
+                    	  <p> 
+                    	    I write things for computers, also people.
+                    	  </p>
+			  <p>
+			    <i class="fa fa-github-alt"></i>
+			    <a href="http://github.com/TomRegan">GitHub</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-comment"></i>
+			    <a href="http://twitter.com/TomRegan">@TomRegan</a>
+			  </p>
+			  <p>
+			    <i class="fa fa-key"></i>
+			    <a href="http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x53D17134DC8B2BFF">
+			    DC8B2BFF
+			    </a>
+			  </p>
+			</article>
+                </section>                
+            
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <!-- This page is licensed under a FUCK ALL OF YOUR STUPID LEGAL SHIT
+             LICENSE V1.0. I am happy for you to share anything I post here as
+             long as you have a clear conscience; this includes but need not
+             be limited to: copies in part or in whole, derivative works,
+             commercial works, commercially unsuccessful works, blasphemous
+             works (strongly encouraged), any edition of Microsoft Works, etc.
+             I do not expect any form of attribution. It is not my intention 
+             to limit your actions with respect to sharing my work in any way.
+        -->
+        <div class="inner">
+            <a href="http://www.kopimi.com/kopimi">
+                <img class="kopimi" src="/assets/images/pages/foot/kopimi.png">
+            </a>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>
