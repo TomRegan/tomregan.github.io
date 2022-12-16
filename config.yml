@@ -1,0 +1,7 @@
+baseURL: https://tomregan.github.io/
+languageCode: en-gb
+title: tomregan.github.io
+theme: "PaperMod"
+
+params:
+  disableThemeToggle: true
