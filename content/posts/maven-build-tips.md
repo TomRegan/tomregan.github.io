@@ -1,9 +1,10 @@
 ---
-title: Tips For Quick, Repeatable, Maintainable Maven Builds
+title: Quick, Repeatable, Maintainable Maven Builds
 date: 2023-04-25
+cover:
+  image: "https://hips.hearstapps.com/hmg-prod/images/construction-toys-1672760698.jpg"
+  alt: "A child playing in sand with a digger"
 ---
-
-![ ](https://hips.hearstapps.com/hmg-prod/images/construction-toys-1672760698.jpg?crop=0.818xw:0.614xh;0,0.147xh&resize=1200:*)
 
 There are few things more frustrating than running into issues with your
 build tool. One moment your build runs smoothly, and the next it fails
