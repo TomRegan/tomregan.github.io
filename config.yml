@@ -27,3 +27,12 @@ menu:
       name: Categories
       url: /categories/
       weight: 10
+
+security:
+  exec:
+    allow:
+      - ^(dart-)?sass(-embedded)?$
+      - ^go$
+      - ^npx$
+      - ^postcss$
+      - ^asciidoctor$

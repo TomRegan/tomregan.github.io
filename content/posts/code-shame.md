@@ -14,7 +14,7 @@ when I came back to change the code. This is something I know inside-out,
 so the point of this post is to shame me into never making the same mistake
 again.
 
-{% highlight diff %}
+```diff
 --- a/src/resource_handler.c
 +++ b/src/resource_handler.c
 @@ -27,16 +27,18 @@ uint16_t
@@ -45,7 +45,7 @@ service_request(struct request *req, char *rtrv_buf, const size_t len)
      }
  
      return RINTERNAL;
-{% endhighlight %}
+```
 
 In the original code I'm deferencing a field in a struct (`req->method`)
 without first finding out whether the struct had been assigned.
