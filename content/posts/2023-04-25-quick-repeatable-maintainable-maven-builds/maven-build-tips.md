@@ -1,10 +1,11 @@
----
-title: Quick, Repeatable, Maintainable Maven Builds
-date: 2023-04-25
-cover:
-  image: "https://hips.hearstapps.com/hmg-prod/images/construction-toys-1672760698.jpg"
-  alt: "A child playing in sand with a digger"
----
++++
+date = '2023-04-25'
+title = 'Quick, Repeatable, Maintainable Maven Builds'
+
+[cover]
+  alt = 'A child playing in sand with a digger'
+  image = 'https://hips.hearstapps.com/hmg-prod/images/construction-toys-1672760698.jpg'
++++
 
 There are few things more frustrating than running into issues with your
 build tool. One moment your build runs smoothly, and the next it fails

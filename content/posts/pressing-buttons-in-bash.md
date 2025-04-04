@@ -1,7 +1,7 @@
----
-title: Pressing Buttons in Bash
-date: 2013-05-12
----
++++
+date = '2013-05-12'
+title = 'Pressing Buttons in Bash'
++++
 
 Shortcuts are a source of constant amusement as far as I'm concerned, and
 nothing on Earth makes me more ecstatically happy than accidentally

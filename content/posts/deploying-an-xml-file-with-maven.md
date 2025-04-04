@@ -1,7 +1,7 @@
----
-title: Deploying an XML File with Maven
-date: 2012-11-06
----
++++
+date = '2012-11-06'
+title = 'Deploying an XML File with Maven'
++++
 
 Something clever we've started doing at work is publishing common build
 files to our local maven repository, so builds can depend on known versions

@@ -1,7 +1,7 @@
----
-title: Deleting Files from Git Object Store
-date: 2013-04-17
----
++++
+date = '2013-04-17'
+title = 'Deleting Files from Git Object Store'
++++
 
 Tonight I accidentally did something stupid and committed binaries to
 my git repository, despite knowing better in the first place. After

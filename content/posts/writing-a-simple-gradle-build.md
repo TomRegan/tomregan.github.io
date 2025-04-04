@@ -1,7 +1,7 @@
----
-title: Writing a Simple Gradle Build
-date: 2013-05-05
----
++++
+date = '2013-05-05'
+title = 'Writing a Simple Gradle Build'
++++
 
 'Build as code' is one of those dreadful smells you start to recognise after
 a while, so gradle, which is a highly free-form system, is not my first choice

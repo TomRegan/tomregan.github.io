@@ -1,7 +1,7 @@
----
-title: Unit Testing in C with Check
-date: 2012-12-09
----
++++
+date = '2012-12-09'
+title = 'Unit Testing in C with Check'
++++
 
 ###Pushy
 I've been developing a cheerfully indolent little HTTP server for some

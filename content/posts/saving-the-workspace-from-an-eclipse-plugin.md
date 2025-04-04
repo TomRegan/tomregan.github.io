@@ -1,7 +1,7 @@
----
-title: Saving the Workspace from an Eclipse Plugin
-date: 2012-09-17
----
++++
+date = '2012-09-17'
+title = 'Saving the Workspace from an Eclipse Plugin'
++++
 
 Since I'm going to the trouble of making a plugin for Eclipse,
 I thought I may as well try and make if look and feel a bit

@@ -1,7 +1,7 @@
----
-title: Building an Eclipse Plugin with Tycho
-date: 2012-09-02
----
++++
+date = '2012-09-02'
+title = 'Building an Eclipse Plugin with Tycho'
++++
 
 I spent a couple of days this week converting the build of an Eclipse
 plugin project from Ant with Ivy to Maven using the Tycho plugins.

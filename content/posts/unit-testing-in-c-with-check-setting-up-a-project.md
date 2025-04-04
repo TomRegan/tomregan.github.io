@@ -1,7 +1,7 @@
----
-title: Unit Testing in C with Check - Setting Up a Project
-date: 2012-08-27
----
++++
+date = '2012-08-27'
+title = 'Unit Testing in C with Check - Setting Up a Project'
++++
 
 In a [previous post](blog/2012/08/12/unit-testing-in-c-with-check)
 I went through the steps to run the

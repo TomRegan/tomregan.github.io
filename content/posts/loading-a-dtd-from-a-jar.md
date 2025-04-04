@@ -1,7 +1,7 @@
----
-title: "Loading a DTD from a JAR"
-date: 2013-12-02
----
++++
+date = '2013-12-02'
+title = 'Loading a DTD from a JAR'
++++
 
 Bundling resources into a jar file is a common way to deploy your Java
 application, useful because it makes the jar's resources available to

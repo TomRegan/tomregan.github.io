@@ -1,7 +1,7 @@
----
-title: Using JVM Shutdown Hooks to Kill a Child Process
-date: 2012-08-06
----
++++
+date = '2012-08-06'
+title = 'Using JVM Shutdown Hooks to Kill a Child Process'
++++
 
 Today I spent some time writing a runner for a command-line Java socket 
 application. I'd assumed that it would be easy enough to quit the process 

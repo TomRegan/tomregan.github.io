@@ -1,7 +1,7 @@
----
-title: Switching Text Editors
-date: 2013-09-08
----
++++
+date = '2013-09-08'
+title = 'Switching Text Editors'
++++
 
 After 7 years, I'm finally doing the dirty dead: jumping off the
 Vim ship, into the [*adjective*], [*adjective*] something [*noun*]

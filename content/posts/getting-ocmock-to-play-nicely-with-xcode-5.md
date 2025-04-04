@@ -1,7 +1,7 @@
----
-title: Getting OCMock to play nicely with XCode 5
-date: 2013-11-17
----
++++
+date = '2013-11-17'
+title = 'Getting OCMock to play nicely with XCode 5'
++++
 
 I've started writing a dashboard Cocoa app, and I've found the process of
 setting up OCMock really unreasonably painful.

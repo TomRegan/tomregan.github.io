@@ -1,7 +1,7 @@
----
-title: Fixing Git Upload Pack Not Found
-date: 2012-09-08
----
++++
+date = '2012-09-08'
+title = 'Fixing Git Upload Pack Not Found'
++++
 
 I've only just realised that blogging about problems is a great way of
 delaying doing the thing I intended to get done in the first place.

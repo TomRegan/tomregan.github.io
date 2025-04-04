@@ -1,7 +1,7 @@
----
-title: Bringing Eclipse Shortcuts to XCode
-date: 2013-01-12
----
++++
+date = '2013-01-12'
+title = 'Bringing Eclipse Shortcuts to XCode'
++++
 
 When I first arrived in the real world, I was introduced to new things;
 amongst these were 'collaboration' and 'gigantic code bases'. I 

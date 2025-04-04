@@ -1,7 +1,7 @@
----
-title: Writing Libraries in Bash
-date: 2013-11-19
----
++++
+date = '2013-11-19'
+title = 'Writing Libraries in Bash'
++++
 
 <!--
 ![BY-NC-SA shells by Cody Geary](https://farm1.staticflickr.com/119/308384875_5232c39c9a_n.jpg)

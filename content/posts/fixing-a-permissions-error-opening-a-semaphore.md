@@ -1,7 +1,7 @@
----
-title: Fixing a Permissions Error Opening a Semaphore
-date: 2012-10-06
----
++++
+date = '2012-10-06'
+title = 'Fixing a Permissions Error Opening a Semaphore'
++++
 
 Today I spent a couple of hours getting semaphores to work.
 

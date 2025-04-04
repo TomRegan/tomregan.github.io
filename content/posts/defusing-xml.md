@@ -1,7 +1,7 @@
----
-title: Defusing XML
-date: 2013-04-15
----
++++
+date = '2013-04-15'
+title = 'Defusing XML'
++++
 
 ![](https://gs1.wac.edgecastcdn.net/8019B6/data.tumblr.com/tumblr_m8uhnbZZoM1rzupqxo1_500.png)
 

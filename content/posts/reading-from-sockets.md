@@ -1,7 +1,7 @@
----
-title: Reading from Sockets
-date: 2012-09-22
----
++++
+date = '2012-09-22'
+title = 'Reading from Sockets'
++++
 
 This is a story about how I learned to read streams from sockets, or
 to put it another way:

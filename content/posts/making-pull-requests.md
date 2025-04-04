@@ -1,11 +1,10 @@
----
-title: Making Pull Requests
-date: 2014-05-24
-lastmod: 2014-05-24
-categories:
-    - development
-description: I just got my first pull request accepted!
----
++++
+categories = ['development']
+date = '2014-05-24'
+description = 'I just got my first pull request accepted!'
+lastmod = '2014-05-24'
+title = 'Making Pull Requests'
++++
 
 ![Nyan Cat](https://octodex.github.com/images/nyantocat.gif)
 

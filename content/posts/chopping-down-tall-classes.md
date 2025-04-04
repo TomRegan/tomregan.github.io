@@ -1,7 +1,7 @@
----
-title: Chopping Down Tall Classes
-date: 2013-08-12
----
++++
+date = '2013-08-12'
+title = 'Chopping Down Tall Classes'
++++
 
 I've been having bags of fun today trying to get to grips with an
 enormously busy class. The carbuncle of code is basically a

@@ -1,7 +1,7 @@
----
-title: Using Mockito as a Crutch
-date: 2013-08-28
----
++++
+date = '2013-08-28'
+title = 'Using Mockito as a Crutch'
++++
 
 *"omne trium perfectum"*, as the Latins used to say: a set of three is perfect. Sadly I don't have three facts I know about [mockito](http://code.google.com/p/mockito/),
 but I do have two facts. That's not enough to impress anyone, which means

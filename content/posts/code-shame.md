@@ -1,7 +1,7 @@
----
-title: Code Shame
-date: 2013-01-03
----
++++
+date = '2013-01-03'
+title = 'Code Shame'
++++
 
 Naturally when I write C I'm reasonably careful about a number of things.
 Because at runtime it's a free-for-all, I take care to notice buffer

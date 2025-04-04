@@ -1,7 +1,7 @@
----
-title: Disabling the Next Button in an Eclipse Wizard
-date: 2012-12-09
----
++++
+date = '2012-12-09'
+title = 'Disabling the Next Button in an Eclipse Wizard'
++++
 
 I've been writing an Eclipse wizard that will be used to create new 
 socket applications. The options selected in early in the wizard

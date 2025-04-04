@@ -1,7 +1,7 @@
----
-title: To Sudo or not to Sudo
-date: 2012-08-25
----
++++
+date = '2012-08-25'
+title = 'To Sudo or not to Sudo'
++++
 
 This is a pretty neat trick I've just seen in a tutorial from the
 chaps at [opscode](http://wiki.opscode.com/).

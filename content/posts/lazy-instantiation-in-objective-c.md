@@ -1,7 +1,7 @@
----
-title: Lazy Instantiation in Objective C
-date: 2012-12-09
----
++++
+date = '2012-12-09'
+title = 'Lazy Instantiation in Objective C'
++++
 
 Lazy instantiation is a relatively cheap way of allocating memory to
 component objects as it's required instead of up-front in a constructor.

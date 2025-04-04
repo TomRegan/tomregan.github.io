@@ -1,7 +1,7 @@
----
-title: Monitor a Long Running Process with Control T
-date: 2012-09-07
----
++++
+date = '2012-09-07'
+title = 'Monitor a Long Running Process with Control T'
++++
 
 One of the nice things about being in Linux exile is learning about
 new things that I hadn't noticed were missing from my life, like

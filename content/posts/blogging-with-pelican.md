@@ -1,7 +1,7 @@
----
-title: Blogging with Pelican
-date: 2013-04-13
----
++++
+date = '2013-04-13'
+title = 'Blogging with Pelican'
++++
 
 ![](http://farm2.staticflickr.com/1335/1349088634_9689c2fe93_n.jpg "image By Jim Bahn on Flickr")
 

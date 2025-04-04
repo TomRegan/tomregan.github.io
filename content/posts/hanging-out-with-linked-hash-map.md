@@ -1,7 +1,7 @@
----
-title: Hanging Out with Linked Hash Maps
-date: 2013-08-18
----
++++
+date = '2013-08-18'
+title = 'Hanging Out with Linked Hash Maps'
++++
 
 [`LinkedHashMap`](http://docs.oracle.com/javase/6/docs/api/java/util/LinkedHashMap.html)
 is a surprising useful data structure, and missing from many standard

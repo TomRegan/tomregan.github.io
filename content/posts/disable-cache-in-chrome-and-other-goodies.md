@@ -1,7 +1,7 @@
----
-title: Disable Cache in Chrome and Other Goodies
-date: 2013-01-06
----
++++
+date = '2013-01-06'
+title = 'Disable Cache in Chrome and Other Goodies'
++++
 
 Through some lucky keyboard-mashing I stumbled across a couple of
 useful developer features in Google Chrome, including an option to

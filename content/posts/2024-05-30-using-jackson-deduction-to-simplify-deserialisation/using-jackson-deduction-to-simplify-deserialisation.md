@@ -1,12 +1,11 @@
----
-date: 2024-05-30
-title: Using Jackson Deduction to Simplify Deserialisation
-cover:
-  image: posts/2024-05-30-using-jackson-deduction-to-simplify-deserialisation/cover.jpeg
-tags:
-- java
-- jackson
----
++++
+date = '2024-05-30'
+tags = ['java', 'jackson']
+title = 'Using Jackson Deduction to Simplify Deserialisation'
+
+[cover]
+  image = 'posts/2024-05-30-using-jackson-deduction-to-simplify-deserialisation/cover.jpeg'
++++
 
 I find the documentation for Jackson is on the terse side, and dare I
 say obstructively self-referential. If you aren't moved fully to tears

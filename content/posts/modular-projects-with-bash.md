@@ -1,7 +1,7 @@
----
-title: Modular Projects with Bash
-date: 2012-07-19
----
++++
+date = '2012-07-19'
+title = 'Modular Projects with Bash'
++++
 
 I try to use bash scripts wherever I can over ruby or python. Partly
 that's down to stubbornness, but it's mostly because the problems I'm
