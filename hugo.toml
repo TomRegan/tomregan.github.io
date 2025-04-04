@@ -1,0 +1,46 @@
+baseURL = "https://tomregan.github.io/"
+languageCode = "en-gb"
+title = "tomregan.github.io"
+theme = "PaperMod"
+
+[pagination]
+pagerSize = 50
+
+[params]
+disableThemeToggle = true
+ShowReadingTime = true
+ShowPostNavLinks = false
+ShowBreadCrumbs = true
+ShowCodeCopyButtons = true
+ShowWordCount = true
+disableSpecial1stPost = false
+disableScrollToTop = true
+showtoc = false
+tocopen = false
+
+[params.homeInfoParams]
+Title = "Hi there 👋"
+Content = "I'm Tom, I make software"
+
+[[menu.main]]
+name = "Archive"
+url = "archives/"
+weight = 5
+
+[[menu.main]]
+identifier = "categories"
+name = "Categories"
+url = "/categories/"
+weight = 10
+
+[security.exec]
+allow = [
+    "^(dart-)?sass(-embedded)?$",
+    "^go$",
+    "^npx$",
+    "^postcss$",
+    "^asciidoctor$"
+]
+
+[markup.goldmark.renderer]
+unsafe = true
