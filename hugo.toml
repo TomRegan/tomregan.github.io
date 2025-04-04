@@ -17,6 +17,7 @@ disableSpecial1stPost = false
 disableScrollToTop = true
 showtoc = false
 tocopen = false
+DateFormat = "2 January 2006"
 
 [params.homeInfoParams]
 Title = "Tom Regan"
