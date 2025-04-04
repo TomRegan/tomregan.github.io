@@ -19,8 +19,8 @@ showtoc = false
 tocopen = false
 
 [params.homeInfoParams]
-Title = "Hi there 👋"
-Content = "I'm Tom, I make software"
+Title = "Tom Regan"
+Content = "Lots of networking and JVM enthusiasm."
 
 [[menu.main]]
 name = "Archive"
