@@ -8,7 +8,7 @@ pagerSize = 50
 
 [params]
 disableThemeToggle = true
-ShowReadingTime = true
+ShowReadingTime = false
 ShowPostNavLinks = false
 ShowBreadCrumbs = true
 ShowCodeCopyButtons = true
@@ -29,9 +29,9 @@ url = "archives/"
 weight = 5
 
 [[menu.main]]
-identifier = "categories"
-name = "Categories"
-url = "/categories/"
+identifier = "tags"
+name = "Tags"
+url = "tags/"
 weight = 10
 
 [security.exec]
