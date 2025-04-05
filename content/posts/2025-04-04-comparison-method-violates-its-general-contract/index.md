@@ -210,7 +210,7 @@ broken, a merge is triggered:
     beneath it
 
 When either 1 or 2 is untrue, TimSort stops searching and begins merging
-the run stack If these rules are still broken at the end of
+the run stack. If these rules are still broken at the end of
 merging, TimSort sees that the comparator didn't do its job, and
 that's when the exception is thrown.
 
@@ -294,13 +294,11 @@ But our comparator has decided:
 
 This could leave TimSort to search endlessly up and down the run, like
 the minute hand circling a clock, if it didn't stop to throw the
-IllegalArgumentException, Comparison method violates its general
-contract.
+exception.
 
 ## Writing Better Comparators
 
-The timeless advice to programmers, to be lazy, and don't write your own
-code is as relevant as ever. Familiarize yourself with the `Comparator`
+Avoid writing your own comparators unnecessarily. Familiarize yourself with the `Comparator`
 API in Java, prefer those comparators when they're available.
 
 If you're writing your own comparator, make sure you understand the
