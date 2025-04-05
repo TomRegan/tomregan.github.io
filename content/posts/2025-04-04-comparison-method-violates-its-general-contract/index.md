@@ -7,7 +7,7 @@ title = 'Comparison method violates its general contract!'
 image = 'posts/2025-04-04-comparison-method-violates-its-general-contract/cover.jpg'
 +++
 
-**[ComparatorVerifier](https://github.com/TomRegan/comparatorverifier) is a library verifying Comparators. Check it out!**
+**[ComparatorVerifier](https://github.com/TomRegan/comparatorverifier) is a library for verifying Comparators. Check it out!**
 
 Java's standard sorting algorithm, TimSort, is a clever hybrid algorithm
 that uses a deceptively simple insight into the typical pattern of elements in
@@ -48,7 +48,7 @@ java.lang.IllegalArgumentException: Comparison method violates its general contr
 
 ## First Steps With TimSort
 
-When I have to reason about sorting, I usually think about a bookcase,
+When I have to reason about sorting, I usually think about a bookshelf,
 so let's use that idea to get an insight into what TimSort is doing.
 
 - **What does TimSort do?** It examines a chaotic collection of books
@@ -110,7 +110,7 @@ Formally:
     If x ≤ y and y ≤ z, then x ≤ z
 
 Returning to the clock face, we can see how a cycle might be introduced
-by a incorrectly written comparator, and how it's possible to get into a
+by an incorrectly written comparator, and how it's possible to get into a
 loop, like 1 → 2 → 3 → 1.
 
 ## TimSort Step by Step
@@ -194,15 +194,6 @@ just the full sorted array:
 
     [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-### How The Order Changed
-
-At each step, here's how the full array looked:
-
-    [2, 3, 5, 7, 6, 4, 1, 8, 9]
-    [2, 3, 5, 7][1, 4, 6][8, 9]
-    [1, 2, 3, 4, 5, 6, 7][8, 9]
-    [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
 ## Triggering a Merge
 
 At the end of step one, we said that runs would be stacked up until a
@@ -219,8 +210,8 @@ broken, a merge is triggered:
     beneath it
 
 When either 1 or 2 is untrue, TimSort stops searching and begins merging
-the run stack, however if these rules are still broken at the end of
-merging, that's evidence that the comparator didn't do its job, and
+the run stack If these rules are still broken at the end of
+merging, TimSort sees that the comparator didn't do its job, and
 that's when the exception is thrown.
 
 ## Galloping (aka binary search): The Final Puzzle Piece
@@ -251,30 +242,15 @@ strategy. Instead of looking at every element, we're going to perform a
 binary search by jumping ahead a few elements into a region of
 uncertainty.
 
-Instead of comparing every element in the first run to every element in
-the second run, we're going to start jumping ahead in the winning run.
-We're guessing that it's so well-ordered that it'll be several
+We're guessing the winning run is already so well-ordered that it'll be several
 comparisons before we find the next element which is smaller than the
-element in the second run. We skip the comparison of 5 and 4 and advance
-further into the winning run.
-
-``` yaml
-           ↓
-runA ← [5, 7]
-        ↓
-runB ← [4, 6]
-```
-
-In the case of our example data, galloping doesn't pay off, the array
-was too small, but hopefully it's clear how switching to binary search
-has the potential to eliminate a large number of unnecessary
-comparisons.
+element in the second run.
 
 ## Comparison method violates its general contract
 
 We've examined how TimSort is supposed to work. Now we'll look at how it
 fails. Let's continue with our example of galloping to see how TimSort
-detects inconsistencies in Comparators. Let's go back to our first
+detects inconsistencies in Comparators. We'll go back to our first
 successful merge, except this time we're going to imagine we've been
 using an incorrect comparator all along. This comparator has strange
 ideas about the number 4, and returns different results depending on the
@@ -301,7 +277,7 @@ runB ← [8, 9]
 
 Our first comparison is between 4 and 8. Our comparator incorrectly says
 that 8 is *less than* 4 because it has been written improperly. Our next
-comparison is with 3 Now the comparator returns the correct result, that
+comparison is with 3. Now the comparator returns the correct result, that
 8 is greater than 3. We've already determined, using the same
 comparator, that 3 is less than 4, because we've previously sorted this
 run, so our comparator is telling us both that 4 is less than 8 and
