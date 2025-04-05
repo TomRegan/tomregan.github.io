@@ -10,7 +10,7 @@ image = 'posts/2025-04-04-comparison-method-violates-its-general-contract/cover.
 **[ComparatorVerifier](https://github.com/TomRegan/comparatorverifier) is a library for verifying Comparators. Check it out!**
 
 Java's standard sorting algorithm, TimSort, is a clever hybrid algorithm
-that uses a deceptively simple insight into the typical pattern of elements in
+that uses a deceptively simple insight about the typical pattern of elements in
 arrays. Unfortunately the insight is couched deep in mathematical
 obscurity:
 
@@ -54,25 +54,31 @@ so let's use that idea to get an insight into what TimSort is doing.
 - **What does TimSort do?** It examines a chaotic collection of books
   and identifies sequences where the books are already arranged
   alphabetically.
-- **How?** It scans through the shelf left to right and "filters out"
-  already-ordered groups (called runs). Then it merges these groups,
+- **How?** It scans through the shelf and picks
+  already-ordered groups which it referrs to as "runs." Then it merges these groups,
   ensuring the books remain in order.
 - **Why?** It's much easier to merge small, sorted groups than to
   re-sort the entire collection from scratch. This approach saves time
   and effort,
 - **What if something goes wrong?** Imagine if some books had
-  contradictory labels: to the left of the shelf TimSort decides that
-  Book A should come before Book B, while to the right it thinks that
-  Book A comes after Book B. When you try to merge these groups, the
+  confusing titles: you're trying to compare Book A and Book B,
+  and one moment it's clear A comes before B, but later on you're suddenly certain that B comes before A and you place the books in a different order.
+When you try to merge these groups, the
   inconsistency becomes impossible to resolve. In TimSort, when it
   detects such conflicting orders during merging, it stops the process
   and throws the error: "Comparison method violates its general
   contract!"
 
-This ordering mix-up is a very strange situation for TimSort get itself
-into! Key to this is the fact that TimSort uses outside help to work out
-what the ordering of elements in an array should be. It uses a
-Comparator. In our example of the bookshelf, the comparator would be
+So TimSort speeds up sorting by first looking for "runs" of pre-sortedness
+in the collection. But this approach is susceptible to failure if the
+algorithm gets confused about the order of elements it's comparing.
+
+This kind of mix-up is a very strange situation for TimSort get itself
+into! Key to understanding how this can happen is knowing that TimSort uses outside help to work out
+what the ordering of elements in an array should be. It uses an interface in Java called
+Comparator. A comparator can be one that's provided by Java, or it can be one that you've written yourself.
+
+In our example of the bookshelf, the comparator would be
 responsible for knowing the alphabet, and when it's handed two books,
 giving the correct answer about which book goes on the shelf first, and
 which is second.
