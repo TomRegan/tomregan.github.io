@@ -252,7 +252,7 @@ the run stack. If these rules are still broken at the end of merging,
 TimSort sees that the comparator didn't do its job, and that's when the
 exception is thrown.
 
-## Galloping (aka binary search): The Final Puzzle Piece
+## Galloping (aka binary search)
 
 It's useful to understand galloping because sometimes when we're
 sorting, we can end up comparing an element in the middle of a run.
