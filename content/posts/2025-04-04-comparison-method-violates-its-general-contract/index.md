@@ -86,10 +86,10 @@ In our example of the bookshelf, the comparator would be responsible for
 knowing the alphabet, and when it's handed two books, giving the correct
 answer about which book goes on the shelf first, and which is second.
 
-Before we examine TimSort, let's throw in one last idea to help us
+Before we examine TimSort, let's throw in one more idea to help us
 understand how the comparator might be thinking about the alphabet. You
 and I probably think of the alphabet running left to right, starting at
-A and *ending* at Z. But we should imagine a comparator sees the
+A and *ending* at Z. But we should imagine a comparator that sees the
 alphabet a different way! Imagine the alphabet mixed up and arranged
 around a clock face.
 
@@ -268,7 +268,7 @@ runB ← [1, 4, 6]
 First we do `compare(2, 1)` and put 1 in our temporary array. We
 continue:
 
-``` yanl
+``` yaml
         ↓
 runA ← [2, 3, 5, 7]
         ↓*           temp ← [1]
@@ -356,7 +356,7 @@ We'll leave it here for now.
 How do we avoid this kind of problem in our own code?
 
 We can avoid writing our own comparators unnecessarily: familiarize
-yourself with the `Comparator` API in Java, and prefer to use those
+yourself with the Comparator API in Java, and prefer to use those
 comparators when they're available.
 
 If you're writing your own comparator, make sure you understand the
